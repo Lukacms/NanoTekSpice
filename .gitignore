@@ -35,3 +35,7 @@
 nanotekspice
 assets/
 build/
+CMakeCache.txt
+CMakeFiles/
+.cmake/
+cmake_*
