@@ -17,6 +17,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # project name
 project(nanotekspice)
 
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/../)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib/)
+
+include_directories(include/)
+
 # Warning flags
 set(GCC_WARNING_FLAGS
     -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches
@@ -101,6 +106,5 @@ add_executable(nanotekspice src/main.cpp)
 
 # include directories
 target_compile_options(nanotekspice PRIVATE ${WARNING_FLAGS})
-target_include_directories(nanotekspice PUBLIC include)
 set_property(TARGET nanotekspice PROPERTY CXX_STANDARD 20)
 set_property(TARGET nanotekspice PROPERTY CXX_STANDARD_REQUIRED ON)
