@@ -1,3 +1,13 @@
+# to build:
+
+# mkdir build && cd build
+
+# cmake .. -GNinja -DCMAKE_BUILD_TYPE=Build -DCMAKE_C_COMPILER=clang
+# -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_EXPORT_COMPILE_COMMANDS=true
+
+# ninja
+
+# => executable should be in build file
 cmake_minimum_required(VERSION 3.16...3.23)
 
 # standard version cpp
