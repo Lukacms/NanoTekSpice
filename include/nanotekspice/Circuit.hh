@@ -19,6 +19,7 @@ namespace nts
             ~Circuit();
 
             std::vector<nts::IComponent> getComponentList();
+            void addComponent(IComponent &);
 
         private:
             std::vector<nts::IComponent> component_list;
