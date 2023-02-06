@@ -22,7 +22,7 @@ namespace nts
 
         protected:
             std::string name;
-            std::map<std::size_t, nts::IComponent> pin_to_component;
+            std::map<std::size_t, nts::IComponent *> pin_to_component;
             std::map<std::size_t, std::size_t> pin_to_pin;
     };
 } // namespace nts

@@ -9,17 +9,14 @@
 
 /* Constructor & Destructor */
 
-nts::ClockComponent::ClockComponent(std::string cname)
+nts::ClockComponent::ClockComponent(const std::string &cname)
 {
     this->name = cname;
-    return;
 }
-
-nts::ClockComponent::~ClockComponent() {}
 
 /* Methods */
 
-nts::Tristate nts::ClockComponent::compute(std::size_t pin)
+nts::Tristate nts::ClockComponent::compute(std::size_t pin __attribute_maybe_unused__)
 {
     return this->currentState;
 }
@@ -34,5 +31,4 @@ void nts::ClockComponent::simulate(std::size_t tick)
         else
             this->currentState = nts::Tristate::True;
     }
-    return;
 }

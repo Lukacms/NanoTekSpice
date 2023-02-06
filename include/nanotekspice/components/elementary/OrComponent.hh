@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** NanoTekSpice [WSL : Manjaro]
 ** File description:
-** InputComponent
+** OrComponent
 */
 
 #pragma once
@@ -11,16 +11,17 @@
 
 namespace nts
 {
-    class InputComponent : public AComponent
+    class OrComponent : public AComponent
     {
         public:
-            InputComponent(const std::string &name);
-            ~InputComponent() override = default;
+            OrComponent(const std::string &name);
+            ~OrComponent() override = default;
 
-            void setCurrentState(nts::Tristate state);
             nts::Tristate compute(std::size_t pin) final;
 
+        protected:
         private:
-            nts::Tristate currentState = nts::Tristate::Undefined;
     };
 } // namespace nts
+
+

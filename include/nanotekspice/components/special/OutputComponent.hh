@@ -14,10 +14,11 @@ namespace nts
     class OutputComponent : public AComponent
     {
         public:
-            OutputComponent(std::string name);
-            ~OutputComponent() = default;
+            OutputComponent(const std::string &name);
+            ~OutputComponent() override = default;
 
-            nts::Tristate compute(std::size_t tick);
+            nts::Tristate compute(std::size_t tick) final;
+            nts::Tristate getLastState();
 
         private:
             nts::Tristate currentState = nts::Tristate::Undefined;

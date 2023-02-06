@@ -14,11 +14,11 @@ namespace nts
     class ClockComponent : public AComponent
     {
         public:
-            ClockComponent(std::string name);
-            ~ClockComponent();
+            ClockComponent(const std::string &name);
+            ~ClockComponent() override = default;
 
-            void simulate(std::size_t tick);
-            nts::Tristate compute(std::size_t pin);
+            void simulate(std::size_t tick) final;
+            nts::Tristate compute(std::size_t pin) final;
 
         private:
             nts::Tristate currentState = nts::Tristate::Undefined;

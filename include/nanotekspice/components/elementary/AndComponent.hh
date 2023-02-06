@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** NanoTekSpice [WSL : Manjaro]
 ** File description:
-** FalseComponent
+** AndComponent
 */
 
 #pragma once
@@ -11,11 +11,11 @@
 
 namespace nts
 {
-    class FalseComponent : public AComponent
+    class AndComponent : public AComponent
     {
         public:
-            FalseComponent(const std::string &name = "");
-            ~FalseComponent() override = default;
+            AndComponent(const std::string &name);
+            ~AndComponent() override = default;
 
             nts::Tristate compute(std::size_t pin) final;
     };

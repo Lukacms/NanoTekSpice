@@ -9,15 +9,14 @@
 
 /* Constructor */
 
-nts::TrueComponent::TrueComponent(std::string cname)
+nts::TrueComponent::TrueComponent(const std::string &cname)
 {
     this->name = cname;
-    return;
 }
 
 /* Methods */
 
-nts::Tristate nts::TrueComponent::compute(std::size_t pin)
+nts::Tristate nts::TrueComponent::compute(std::size_t pin __attribute_maybe_unused__)
 {
     return nts::Tristate::True;
 }

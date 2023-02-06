@@ -14,7 +14,7 @@ namespace nts
     class TrueComponent : public AComponent
     {
         public:
-            TrueComponent(std::string name);
+            TrueComponent(const std::string &name);
             ~TrueComponent() override = default;
 
             nts::Tristate compute(std::size_t pin) final;

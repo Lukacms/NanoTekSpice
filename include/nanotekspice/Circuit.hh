@@ -15,13 +15,13 @@ namespace nts
     class Circuit
     {
         public:
-            Circuit();
-            ~Circuit();
+            Circuit() = default;
+            ~Circuit() = default;
 
-            std::vector<nts::IComponent> getComponentList();
+            std::vector<nts::IComponent *> getComponentList();
             void addComponent(IComponent &);
 
         private:
-            std::vector<nts::IComponent> component_list;
+            std::vector<nts::IComponent *> component_list;
     };
 } // namespace nts

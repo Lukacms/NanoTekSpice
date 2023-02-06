@@ -9,15 +9,14 @@
 
 /* Constructor & Destructor */
 
-nts::InputComponent::InputComponent(std::string cname)
+nts::InputComponent::InputComponent(const std::string &cname)
 {
     this->name = cname;
-    return;
 }
 
 /* Methods */
 
-nts::Tristate nts::InputComponent::compute(std::size_t pin)
+nts::Tristate nts::InputComponent::compute(std::size_t pin __attribute_maybe_unused__)
 {
     return this->currentState;
 }
@@ -25,5 +24,4 @@ nts::Tristate nts::InputComponent::compute(std::size_t pin)
 void nts::InputComponent::setCurrentState(nts::Tristate state)
 {
     this->currentState = state;
-    return;
 }
