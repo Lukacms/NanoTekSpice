@@ -14,9 +14,9 @@ namespace nts
     class FalseComponent : public AComponent
     {
         public:
-            FalseComponent() = default;
-            ~FalseComponent() override;
+            FalseComponent(std::string name);
+            ~FalseComponent() override = default;
 
-            nts::Tristate compute(std::size_t pin) override;
+            nts::Tristate compute(std::size_t pin) final;
     };
 } // namespace nts

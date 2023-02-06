@@ -5,11 +5,15 @@
 ** FalseComponent
 */
 
-#include <nanotekspice/components/FalseComponent.hh>
+#include <nanotekspice/components/special/FalseComponent.hh>
 
-/* Constructor & Destructor */
+/* Constructor */
 
-nts::FalseComponent::~FalseComponent() {}
+nts::FalseComponent::FalseComponent(std::string cname)
+{
+    this->name = cname;
+    return;
+}
 
 /* Methods */
 
