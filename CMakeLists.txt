@@ -81,8 +81,9 @@ if(USE_CLANG_TIDY)
     NAMES "clang-tidy"
     DOC "Path to clang-tidy executable")
   if(CLANG_TIDY_EXE)
-    if(DEFINED REDOOM_CLANG_TIDY_FLAGS)
-      set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}" "${REDOOM_CLANG_TIDY_FLAGS}")
+    if(DEFINED NANOTEKSPICE_CLANG_TIDY_FLAGS)
+      set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}"
+                               "${NANOTEKSPICE_CLANG_TIDY_FLAGS}")
     else()
       set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}")
     endif()
