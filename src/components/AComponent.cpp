@@ -19,7 +19,4 @@ void nts::AComponent::setLink(std::size_t pin, nts::IComponent &other, std::size
     this->pin_to_pin[pin] = otherpin;
 }
 
-void nts::AComponent::simulate(std::size_t tick)
-{
-    return;
-}
+void nts::AComponent::simulate(std::size_t tick) {}
