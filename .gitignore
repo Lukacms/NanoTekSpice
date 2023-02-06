@@ -33,3 +33,5 @@
 
 # Specific to project
 nanotekspice
+assets/
+build/
