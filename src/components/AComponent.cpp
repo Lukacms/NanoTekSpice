@@ -5,7 +5,7 @@
 ** AComponent
 */
 
-#include "nanotekspice/components/AComponent.hh"
+#include <nanotekspice/components/AComponent.hh>
 
 /* Destructor */
 
