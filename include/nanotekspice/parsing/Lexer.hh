@@ -13,8 +13,9 @@
 #include <string>
 #include <vector>
 
-#define LEXER_EXCEP " not recognized.\n"
+#define LEXER_EXCEP " not recognized."
 #define LEXER_EOF "End of file reached"
+#define LEXER_GETLINE_ERR "Error with getline."
 
 namespace nts
 {
