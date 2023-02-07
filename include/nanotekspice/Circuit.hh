@@ -23,10 +23,10 @@ namespace nts
             Circuit &operator=(Circuit &&) = delete;
             ~Circuit() = default;
 
-            std::vector<nts::IComponent *> getComponentList();
-            void addComponent(nts::IComponent &new_component);
+            std::vector<std::unique_ptr<nts::IComponent>> &getComponentList();
+            void addComponent(std::unique_ptr<nts::IComponent> new_component);
 
         private:
-            std::vector<nts::IComponent *> component_list;
+            std::vector<std::unique_ptr<nts::IComponent>> component_list;
     };
 } // namespace nts
