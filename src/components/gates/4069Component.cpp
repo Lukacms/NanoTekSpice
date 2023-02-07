@@ -18,17 +18,17 @@ nts::SixNotComponent::SixNotComponent(const std::string &cname)
 
 nts::Tristate nts::SixNotComponent::compute(std::size_t pin)
 {
-    if (pin == 2)
-        return this->computeSpecificPin(1);
-    if (pin == 4)
-        return this->computeSpecificPin(3);
-    if (pin == 6)
-        return this->computeSpecificPin(5);
-    if (pin == 8)
-        return this->computeSpecificPin(9);
-    if (pin == 10)
-        return this->computeSpecificPin(11);
-    return this->computeSpecificPin(13);
+    if (pin == chip_pin2)
+        return this->computeSpecificPin(chip_pin1);
+    if (pin == chip_pin4)
+        return this->computeSpecificPin(chip_pin3);
+    if (pin == chip_pin6)
+        return this->computeSpecificPin(chip_pin5);
+    if (pin == chip_pin8)
+        return this->computeSpecificPin(chip_pin9);
+    if (pin == chip_pin10)
+        return this->computeSpecificPin(chip_pin11);
+    return this->computeSpecificPin(chip_pin13);
 }
 
 nts::Tristate nts::SixNotComponent::computeSpecificPin(std::size_t pin1, std::size_t pin2)
@@ -39,9 +39,5 @@ nts::Tristate nts::SixNotComponent::computeSpecificPin(std::size_t pin1, std::si
     if (this->pin_to_pin.find(pin1) != this->pin_to_pin.end() &&
         this->pin_to_component.find(pin1) != this->pin_to_component.end())
         input1 = this->pin_to_component[pin1]->compute(this->pin_to_pin[pin1]);
-    if (input1 == nts::Tristate::Undefined)
-        return nts::Tristate::Undefined;
-    if (input1 == nts::Tristate::True)
-        return nts::Tristate::False;
-    return nts::Tristate::True;
+    return UElementaryComponent::notFunction(input1);
 }

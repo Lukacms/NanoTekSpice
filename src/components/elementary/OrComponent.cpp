@@ -27,13 +27,5 @@ nts::Tristate nts::OrComponent::compute(std::size_t pin __attribute_maybe_unused
     if (this->pin_to_pin.find(2) != this->pin_to_pin.end() ||
         this->pin_to_component.find(2) != this->pin_to_component.end())
         input2 = this->pin_to_component[2]->compute(this->pin_to_pin[2]);
-    if ((input1 == nts::Tristate::False && input2 == nts::Tristate::False))
-        return nts::Tristate::False;
-    if ((input1 == nts::Tristate::True && input2 == nts::Tristate::False) ||
-        (input1 == nts::Tristate::False && input2 == nts::Tristate::True) ||
-        (input1 == nts::Tristate::True && input2 == nts::Tristate::True) ||
-        (input1 == nts::Tristate::Undefined && input2 == nts::Tristate::True) ||
-        (input1 == nts::Tristate::True && input2 == nts::Tristate::Undefined))
-        return nts::Tristate::True;
-    return nts::Tristate::Undefined;
+    return UElementaryComponent::orFunction(input1, input2);
 }

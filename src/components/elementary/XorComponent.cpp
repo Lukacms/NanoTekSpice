@@ -27,11 +27,5 @@ nts::Tristate nts::XorComponent::compute(std::size_t pin __attribute_maybe_unuse
     if (this->pin_to_pin.find(2) != this->pin_to_pin.end() ||
         this->pin_to_component.find(2) != this->pin_to_component.end())
         input2 = this->pin_to_component[2]->compute(this->pin_to_pin[2]);
-    if ((input1 == nts::Tristate::False && input2 == nts::Tristate::False) ||
-        (input1 == nts::Tristate::True && input2 == nts::Tristate::True))
-        return nts::Tristate::False;
-    if ((input1 == nts::Tristate::True && input2 == nts::Tristate::False) ||
-        (input1 == nts::Tristate::False && input2 == nts::Tristate::True))
-        return nts::Tristate::True;
-    return nts::Tristate::Undefined;
+    return UElementaryComponent::xorFunction(input1, input2);
 }

@@ -18,13 +18,13 @@ nts::FourOrComponent::FourOrComponent(const std::string &cname)
 
 nts::Tristate nts::FourOrComponent::compute(std::size_t pin)
 {
-    if (pin == 3)
-        return this->computeSpecificPin(1, 2);
-    if (pin == 4)
-        return this->computeSpecificPin(5, 6);
-    if (pin == 10)
-        return this->computeSpecificPin(8, 9);
-    return this->computeSpecificPin(12, 13);
+    if (pin == chip_pin3)
+        return this->computeSpecificPin(chip_pin1, chip_pin2);
+    if (pin == chip_pin4)
+        return this->computeSpecificPin(chip_pin5, chip_pin6);
+    if (pin == chip_pin10)
+        return this->computeSpecificPin(chip_pin8, chip_pin9);
+    return this->computeSpecificPin(chip_pin12, chip_pin13);
 }
 
 nts::Tristate nts::FourOrComponent::computeSpecificPin(std::size_t pin1, std::size_t pin2)
@@ -38,13 +38,5 @@ nts::Tristate nts::FourOrComponent::computeSpecificPin(std::size_t pin1, std::si
     if (this->pin_to_pin.find(pin2) != this->pin_to_pin.end() &&
         this->pin_to_component.find(pin2) != this->pin_to_component.end())
         input2 = this->pin_to_component[pin2]->compute(this->pin_to_pin[pin2]);
-    if ((input1 == nts::Tristate::False && input2 == nts::Tristate::False))
-        return nts::Tristate::False;
-    if ((input1 == nts::Tristate::True && input2 == nts::Tristate::False) ||
-        (input1 == nts::Tristate::False && input2 == nts::Tristate::True) ||
-        (input1 == nts::Tristate::True && input2 == nts::Tristate::True) ||
-        (input1 == nts::Tristate::Undefined && input2 == nts::Tristate::True) ||
-        (input1 == nts::Tristate::True && input2 == nts::Tristate::Undefined))
-        return nts::Tristate::True;
-    return nts::Tristate::Undefined;
+    return UElementaryComponent::orFunction(input1, input2);
 }
