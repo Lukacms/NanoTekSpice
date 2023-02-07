@@ -2,21 +2,21 @@
 ** EPITECH PROJECT, 2023
 ** NanoTekSpice [WSL : Manjaro]
 ** File description:
-** 4001Component
+** 4071Component
 */
 
-#include <nanotekspice/components/gates/4001Component.hh>
+#include <nanotekspice/components/gates/4071Component.hh>
 
 /* Constructor & Destructor */
 
-nts::FourNorComponent::FourNorComponent(const std::string &cname)
+nts::FourOrComponent::FourOrComponent(const std::string &cname)
 {
     this->name = cname;
 }
 
 /* Methods */
 
-nts::Tristate nts::FourNorComponent::compute(std::size_t pin)
+nts::Tristate nts::FourOrComponent::compute(std::size_t pin)
 {
     if (pin == 3)
         return this->computeSpecificPin(1, 2);
@@ -27,7 +27,7 @@ nts::Tristate nts::FourNorComponent::compute(std::size_t pin)
     return this->computeSpecificPin(12, 13);
 }
 
-nts::Tristate nts::FourNorComponent::computeSpecificPin(std::size_t pin1, std::size_t pin2)
+nts::Tristate nts::FourOrComponent::computeSpecificPin(std::size_t pin1, std::size_t pin2)
 {
     nts::Tristate input1 = nts::Tristate::Undefined;
     nts::Tristate input2 = nts::Tristate::Undefined;
@@ -38,13 +38,13 @@ nts::Tristate nts::FourNorComponent::computeSpecificPin(std::size_t pin1, std::s
     if (this->pin_to_pin.find(pin2) != this->pin_to_pin.end() &&
         this->pin_to_component.find(pin2) != this->pin_to_component.end())
         input2 = this->pin_to_component[pin2]->compute(this->pin_to_pin[pin2]);
-    if (input1 == nts::Tristate::False && input2 == nts::Tristate::False)
-        return nts::Tristate::True;
+    if ((input1 == nts::Tristate::False && input2 == nts::Tristate::False))
+        return nts::Tristate::False;
     if ((input1 == nts::Tristate::True && input2 == nts::Tristate::False) ||
         (input1 == nts::Tristate::False && input2 == nts::Tristate::True) ||
         (input1 == nts::Tristate::True && input2 == nts::Tristate::True) ||
-        (input1 == nts::Tristate::True && input2 == nts::Tristate::Undefined) ||
-        (input1 == nts::Tristate::Undefined && input2 == nts::Tristate::True))
-        return nts::Tristate::False;
+        (input1 == nts::Tristate::Undefined && input2 == nts::Tristate::True) ||
+        (input1 == nts::Tristate::True && input2 == nts::Tristate::Undefined))
+        return nts::Tristate::True;
     return nts::Tristate::Undefined;
 }

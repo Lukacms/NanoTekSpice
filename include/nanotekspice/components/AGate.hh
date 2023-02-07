@@ -14,9 +14,9 @@ namespace nts
     class AGate : public AComponent
     {
         public:
-            ~AGate() override;
+            ~AGate() override = default;
 
             virtual nts::Tristate computeSpecificPin(std::size_t first_input,
-                                                     std::size_t second_input);
+                                                     std::size_t second_input) = 0;
     };
 } // namespace nts
