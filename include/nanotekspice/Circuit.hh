@@ -1,11 +1,14 @@
 /*
 ** EPITECH PROJECT, 2023
-** NanoTekSpice [WSL : Manjaro]
+** NanoTekSpice
 ** File description:
 ** Circuit
 */
 
 #pragma once
+
+#define EPITECH_SUCCESS 0
+#define EPITECH_FAILURE 84
 
 #include <memory>
 #include <nanotekspice/components/IComponent.hh>

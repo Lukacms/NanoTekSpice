@@ -2,8 +2,8 @@
 
 # mkdir build && cd build
 
-# cmake .. -GNinja -DCMAKE_BUILD_TYPE=Build -DCMAKE_C_COMPILER=clang
-# -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_EXPORT_COMPILE_COMMANDS=true
+# cmake .. -GNinja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+# -DCMAKE_EXPORT_COMPILE_COMMANDS=true
 
 # ninja
 
@@ -103,7 +103,9 @@ else()
 endif()
 
 # adding executables
-add_executable(nanotekspice src/main.cpp)
+add_executable(
+  nanotekspice src/main.cpp src/Circuit.cpp src/components/AComponent.cpp
+               src/components/FalseComponent.cpp)
 
 # include directories
 target_compile_options(nanotekspice PRIVATE ${WARNING_FLAGS})
