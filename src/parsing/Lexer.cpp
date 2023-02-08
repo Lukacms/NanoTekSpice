@@ -54,3 +54,11 @@ void nts::Lexer::loadFile()
         this->contents.push_back(line);
     }
 }
+
+std::string nts::Lexer::without_comment(const std::string &src)
+{
+    std::string dest;
+
+    dest = src.substr(0, src.find(COMMENT_CHAR));
+    return dest;
+}

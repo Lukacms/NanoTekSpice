@@ -7,15 +7,16 @@
 
 #pragma once
 
+#define LEXER_EXCEP " not recognized."
+#define LEXER_EOF "End of file reached"
+#define LEXER_GETLINE_ERR "Error with getline."
+#define COMMENT_CHAR "#"
+
 #include <exception>
 #include <fstream>
 #include <istream>
 #include <string>
 #include <vector>
-
-#define LEXER_EXCEP " not recognized."
-#define LEXER_EOF "End of file reached"
-#define LEXER_GETLINE_ERR "Error with getline."
 
 namespace nts
 {
@@ -50,10 +51,15 @@ namespace nts
             [[nodiscard]] const std::ifstream &getFilestream() const;
             [[nodiscard]] std::vector<std::string> getContents() const;
 
-            // methods
+            // return whether or not the ifstream is open
             [[nodiscard]] bool isOpen() const;
+            // load a line from the ifstream
             void loadLine();
+            // load the entire file in a std::vector<std::string>
             void loadFile();
+            // return src without comment (starting with '#' and ending with a newline).
+            // can be an empty line.
+            [[nodiscard]] static std::string without_comment(const std::string &src);
 
         private:
             std::ifstream &filestream;
