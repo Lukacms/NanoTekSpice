@@ -121,7 +121,8 @@ add_executable(nanotekspice
     src/components/gates/4069Component.cpp
     src/components/gates/4071Component.cpp
     src/components/gates/4081Component.cpp
-    src/components/advanced/4008Component.cpp)
+    src/components/advanced/4008Component.cpp
+    src/components/BooleanOperations.cpp)
 
 # include directories
 target_compile_options(nanotekspice PRIVATE ${WARNING_FLAGS})
