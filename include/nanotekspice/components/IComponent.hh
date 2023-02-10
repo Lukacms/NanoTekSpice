@@ -25,8 +25,6 @@ namespace nts
 
             IComponent &operator=(IComponent const &to_copy) = default;
 
-            IComponent &operator=(IComponent const &to_copy) = default;
-
             virtual void setNewState(nts::Tristate new_state) = 0;
             virtual void simulate(std::size_t tick) = 0;
             virtual nts::Tristate compute(std ::size_t pin) = 0;

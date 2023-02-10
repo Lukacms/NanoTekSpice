@@ -6,12 +6,7 @@
 */
 
 #include <memory>
-#include <memory>
 #include <nanotekspice/Circuit.hh>
-#include <nanotekspice/components/IComponent.hh>
-#include <vector>
-
-using std::make_unique;
 #include <nanotekspice/components/IComponent.hh>
 #include <vector>
 
