@@ -17,7 +17,13 @@ namespace nts
     class IComponent
     {
         public:
+            IComponent() = default;
+            IComponent(IComponent const &to_copy) = default;
+            IComponent(IComponent &&to_move) = default;
+
             virtual ~IComponent() = default;
+
+            IComponent &operator=(IComponent const &to_copy) = default;
 
             virtual void simulate(std::size_t tick) = 0;
             virtual nts::Tristate compute(std ::size_t pin) = 0;

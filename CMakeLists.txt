@@ -2,8 +2,8 @@
 
 # mkdir build && cd build
 
-# cmake .. -GNinja -DCMAKE_BUILD_TYPE=Build -DCMAKE_C_COMPILER=clang
-# -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_EXPORT_COMPILE_COMMANDS=true
+# cmake .. -GNinja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+# -DCMAKE_EXPORT_COMPILE_COMMANDS=true
 
 # ninja
 
@@ -17,7 +17,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # project name
 project(nanotekspice)
 
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/..)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib/)
 
 include_directories(include/)
@@ -81,8 +81,9 @@ if(USE_CLANG_TIDY)
     NAMES "clang-tidy"
     DOC "Path to clang-tidy executable")
   if(CLANG_TIDY_EXE)
-    if(DEFINED REDOOM_CLANG_TIDY_FLAGS)
-      set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}" "${REDOOM_CLANG_TIDY_FLAGS}")
+    if(DEFINED NANOTEKSPICE_CLANG_TIDY_FLAGS)
+      set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}"
+                               "${NANOTEKSPICE_CLANG_TIDY_FLAGS}")
     else()
       set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}")
     endif()
@@ -121,7 +122,10 @@ add_executable(nanotekspice
     src/components/gates/4069Component.cpp
     src/components/gates/4071Component.cpp
     src/components/gates/4081Component.cpp
-    src/components/advanced/4008Component.cpp)
+    src/components/advanced/4008Component.cpp
+  src/parsing/Parser.cpp
+  src/parsing/load_circuit.cpp
+  src/parsing/utils_parser.cpp)
 
 # include directories
 target_compile_options(nanotekspice PRIVATE ${WARNING_FLAGS})
