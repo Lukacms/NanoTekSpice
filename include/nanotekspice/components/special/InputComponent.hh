@@ -17,10 +17,12 @@ namespace nts
             InputComponent(const std::string &name);
             ~InputComponent() override = default;
 
-            void setCurrentState(nts::Tristate state);
+            void setNewState(nts::Tristate state) final;
+            void simulate(std::size_t tick) final;
             nts::Tristate compute(std::size_t pin) final;
 
         private:
-            nts::Tristate currentState = nts::Tristate::Undefined;
+            nts::Tristate current_state = nts::Tristate::Undefined;
+            nts::Tristate new_state = nts::Tristate::Undefined;
     };
 } // namespace nts

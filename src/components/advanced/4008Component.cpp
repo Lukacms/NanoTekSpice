@@ -39,13 +39,13 @@ nts::Tristate nts::FourBitAdderComponent::computeSpecificPin(std::size_t pin1, s
 
     if (this->pin_to_pin.find(pin1) != this->pin_to_pin.end() &&
         this->pin_to_component.find(pin1) != this->pin_to_component.end())
-        input1 = this->pin_to_component[pin1]->compute(this->pin_to_pin[pin1]);
+        input1 = this->pin_to_component.at(pin1).get().compute(this->pin_to_pin[pin1]);
     if (this->pin_to_pin.find(pin2) != this->pin_to_pin.end() &&
         this->pin_to_component.find(pin2) != this->pin_to_component.end())
-        input2 = this->pin_to_component[pin2]->compute(this->pin_to_pin[pin2]);
+        input2 = this->pin_to_component.at(pin2).get().compute(this->pin_to_pin[pin2]);
     if (this->pin_to_pin.find(chip_pin9) != this->pin_to_pin.end() &&
         this->pin_to_component.find(chip_pin9) != this->pin_to_component.end())
-        input3 = this->pin_to_component[chip_pin9]->compute(this->pin_to_pin[chip_pin9]);
+        input3 = this->pin_to_component.at(chip_pin9).get().compute(this->pin_to_pin[chip_pin9]);
     return static_cast<nts::Tristate>(input1 ^ input2 ^ input3);
 }
 
@@ -59,13 +59,13 @@ nts::Tristate nts::FourBitAdderComponent::computeCarryOut(std::size_t a_pin, std
         b_pin = chip_pin2;
     if (this->pin_to_pin.find(a_pin) != this->pin_to_pin.end() &&
         this->pin_to_component.find(a_pin) != this->pin_to_component.end())
-        input_a = this->pin_to_component[a_pin]->compute(this->pin_to_pin[a_pin]);
+        input_a = this->pin_to_component.at(a_pin).get().compute(this->pin_to_pin[a_pin]);
     if (this->pin_to_pin.find(b_pin) != this->pin_to_pin.end() &&
         this->pin_to_component.find(b_pin) != this->pin_to_component.end())
-        input_b = this->pin_to_component[b_pin]->compute(this->pin_to_pin[b_pin]);
+        input_b = this->pin_to_component.at(b_pin).get().compute(this->pin_to_pin[b_pin]);
     if (this->pin_to_pin.find(chip_pin9) != this->pin_to_pin.end() &&
         this->pin_to_component.find(chip_pin9) != this->pin_to_component.end())
-        input_c = this->pin_to_component[chip_pin9]->compute(this->pin_to_pin[chip_pin9]);
+        input_c = this->pin_to_component.at(chip_pin9).get().compute(this->pin_to_pin[chip_pin9]);
     if (a_pin == chip_pin7 && b_pin == chip_pin6)
         return static_cast<nts::Tristate>((input_a * input_b) + (input_c * (input_a ^ input_b)));
     return static_cast<nts::Tristate>(

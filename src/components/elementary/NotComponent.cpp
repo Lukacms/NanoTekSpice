@@ -22,6 +22,6 @@ nts::Tristate nts::NotComponent::compute(std::size_t pin __attribute_maybe_unuse
 
     if (this->pin_to_pin.find(1) != this->pin_to_pin.end() ||
         this->pin_to_component.find(1) != this->pin_to_component.end())
-        input = this->pin_to_component[1]->compute(this->pin_to_pin[1]);
-    return UElementaryComponent::notFunction(input);
+        input = this->pin_to_component.at(1).get().compute(this->pin_to_pin[1]);
+    return nts::notFunction(input);
 }
