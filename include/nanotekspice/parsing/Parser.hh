@@ -14,6 +14,11 @@
 #include <string>
 #include <vector>
 
+#define PARSER_FILE_NOT_OPEN "Ifstream given not open."
+#define PARSER_GETLINE_ERR "Error with getline."
+#define PARSER_EOF "End of file."
+#define PARSER_COMMENT_INDICATOR "#"
+
 namespace nts
 {
     class Parser
@@ -22,7 +27,7 @@ namespace nts
             // ctor / dtor
             Parser(std::ifstream &pfilestream);
             Parser(Parser const &to_copy) = default;
-            Parser(Parser &&to_move) = default;
+            Parser(Parser &&to_move);
             ~Parser() = default;
             // overload operator
             Parser &operator=(Parser const &to_copy) = delete;
@@ -63,13 +68,15 @@ namespace nts
             void loadLine();
             // load the entire file in a std::vector<std::string>
             void loadFile();
-            // return src without comment (starting with '#' and ending with a newline).
-            // can be an empty line.
-            [[nodiscard]] static std::string without_comment(const std::string &src);
 
         private:
             std::ifstream &filestream;
             std::vector<std::string> contents{};
+            nts::Circuit circuit{};
     };
+
+    // return src without comment (starting with '#' and ending with a newline).
+    // can be an empty line.
+    [[nodiscard]] std::string without_comment(const std::string &src);
 
 } // namespace nts

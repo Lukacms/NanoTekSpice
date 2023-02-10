@@ -104,8 +104,14 @@ endif()
 
 # adding executables
 add_executable(
-  nanotekspice src/main.cpp src/Circuit.cpp src/components/AComponent.cpp
-               src/components/FalseComponent.cpp)
+  nanotekspice
+  src/main.cpp
+  src/Circuit.cpp
+  src/components/AComponent.cpp
+  src/components/FalseComponent.cpp
+  src/parsing/Parser.cpp
+  src/parsing/load_circuit.cpp
+  src/parsing/utils_parser.cpp)
 
 # include directories
 target_compile_options(nanotekspice PRIVATE ${WARNING_FLAGS})
