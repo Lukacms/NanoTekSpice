@@ -40,3 +40,4 @@ CMakeFiles/
 .cmake/
 cmake_*
 .vscode/
+compile_commands.json

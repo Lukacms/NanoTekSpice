@@ -103,12 +103,26 @@ else()
 endif()
 
 # adding executables
-add_executable(
-  nanotekspice
-  src/main.cpp
-  src/Circuit.cpp
-  src/components/AComponent.cpp
-  src/components/FalseComponent.cpp
+add_executable(nanotekspice
+    src/main.cpp
+    src/Circuit.cpp
+    src/components/AComponent.cpp
+    src/components/elementary/AndComponent.cpp
+    src/components/elementary/OrComponent.cpp
+    src/components/elementary/NotComponent.cpp
+    src/components/elementary/XorComponent.cpp
+    src/components/special/ClockComponent.cpp
+    src/components/special/FalseComponent.cpp
+    src/components/special/InputComponent.cpp
+    src/components/special/OutputComponent.cpp
+    src/components/special/TrueComponent.cpp
+    src/components/gates/4001Component.cpp
+    src/components/gates/4011Component.cpp
+    src/components/gates/4030Component.cpp
+    src/components/gates/4069Component.cpp
+    src/components/gates/4071Component.cpp
+    src/components/gates/4081Component.cpp
+    src/components/advanced/4008Component.cpp
   src/parsing/Parser.cpp
   src/parsing/load_circuit.cpp
   src/parsing/utils_parser.cpp)

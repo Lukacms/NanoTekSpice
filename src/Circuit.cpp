@@ -10,8 +10,6 @@
 #include <nanotekspice/components/IComponent.hh>
 #include <vector>
 
-using std::make_unique;
-
 std::vector<std::unique_ptr<nts::IComponent>> &nts::Circuit::getComponentList()
 {
     return this->component_list;
