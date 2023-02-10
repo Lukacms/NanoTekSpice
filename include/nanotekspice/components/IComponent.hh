@@ -17,7 +17,13 @@ namespace nts
     class IComponent
     {
         public:
+            IComponent() = default;
+            IComponent(IComponent const &to_copy) = default;
+            IComponent(IComponent &&to_move) = default;
+
             virtual ~IComponent() = default;
+
+            IComponent &operator=(IComponent const &to_copy) = default;
 
             IComponent &operator=(IComponent const &to_copy) = default;
 

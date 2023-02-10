@@ -1,18 +1,19 @@
 /*
 ** EPITECH PROJECT, 2023
-** NanoTekSpice [WSL : Manjaro]
+** NanoTekSpice
 ** File description:
 ** Circuit
 */
 
+#include <memory>
 #include <memory>
 #include <nanotekspice/Circuit.hh>
 #include <nanotekspice/components/IComponent.hh>
 #include <vector>
 
 using std::make_unique;
-
-/* Methods */
+#include <nanotekspice/components/IComponent.hh>
+#include <vector>
 
 std::vector<std::unique_ptr<nts::IComponent>> &nts::Circuit::getComponentList()
 {

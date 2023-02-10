@@ -1,11 +1,14 @@
 /*
 ** EPITECH PROJECT, 2023
-** NanoTekSpice [WSL : Manjaro]
+** NanoTekSpice
 ** File description:
 ** Circuit
 */
 
 #pragma once
+
+#define EPITECH_SUCCESS 0
+#define EPITECH_FAILURE 84
 
 #include <memory>
 #include <nanotekspice/components/IComponent.hh>
@@ -17,9 +20,9 @@ namespace nts
     {
         public:
             Circuit() = default;
-            Circuit(const Circuit &) = default;
+            Circuit(const Circuit &) = delete;
             Circuit(Circuit &&) = delete;
-            Circuit &operator=(const Circuit &) = default;
+            Circuit &operator=(const Circuit &) = delete;
             Circuit &operator=(Circuit &&) = delete;
             ~Circuit() = default;
 
