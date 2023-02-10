@@ -52,10 +52,10 @@ namespace nts
             };
 
             // static function to parse
-            // static nts::Circuit parse(std::string &filename);
+            static nts::Circuit &parse(std::string &filename);
 
             // "main" parsing function
-            // nts::Circuit doParsing() { return this->circuit; }
+            nts::Circuit &doParsing();
 
             // getters / setters
             // [[nodiscard]] => compiler will warn if return of function is not used
