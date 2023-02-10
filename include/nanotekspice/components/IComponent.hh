@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <string>
 #include <memory>
+#include <string>
 
 namespace nts
 {
@@ -25,6 +25,7 @@ namespace nts
 
             IComponent &operator=(IComponent const &to_copy) = default;
 
+            virtual void setNewState(nts::Tristate new_state) = 0;
             virtual void simulate(std::size_t tick) = 0;
             virtual nts::Tristate compute(std ::size_t pin) = 0;
             virtual void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherpin) = 0;

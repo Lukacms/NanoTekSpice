@@ -38,6 +38,6 @@ nts::Tristate nts::SixNotComponent::computeSpecificPin(std::size_t pin1, std::si
 
     if (this->pin_to_pin.find(pin1) != this->pin_to_pin.end() &&
         this->pin_to_component.find(pin1) != this->pin_to_component.end())
-        input1 = this->pin_to_component[pin1]->compute(this->pin_to_pin[pin1]);
-    return UElementaryComponent::notFunction(input1);
+        input1 = this->pin_to_component.at(pin1).get().compute(this->pin_to_pin[pin1]);
+    return nts::notFunction(input1);
 }

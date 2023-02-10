@@ -18,10 +18,17 @@ nts::InputComponent::InputComponent(const std::string &cname)
 
 nts::Tristate nts::InputComponent::compute(std::size_t pin __attribute_maybe_unused__)
 {
-    return this->currentState;
+    return this->current_state;
 }
 
-void nts::InputComponent::setCurrentState(nts::Tristate state)
+void nts::InputComponent::setNewState(nts::Tristate state)
 {
-    this->currentState = state;
+    this->new_state = state;
+}
+
+void nts::InputComponent::simulate(std::size_t tick)
+{
+    if (tick == 0)
+        return;
+    this->current_state = this->new_state;
 }

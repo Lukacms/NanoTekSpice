@@ -34,9 +34,9 @@ nts::Tristate nts::FourNandComponent::computeSpecificPin(std::size_t pin1, std::
 
     if (this->pin_to_pin.find(pin1) != this->pin_to_pin.end() &&
         this->pin_to_component.find(pin1) != this->pin_to_component.end())
-        input1 = this->pin_to_component[pin1]->compute(this->pin_to_pin[pin1]);
+        input1 = this->pin_to_component.at(pin1).get().compute(this->pin_to_pin[pin1]);
     if (this->pin_to_pin.find(pin2) != this->pin_to_pin.end() &&
         this->pin_to_component.find(pin2) != this->pin_to_component.end())
-        input2 = this->pin_to_component[pin2]->compute(this->pin_to_pin[pin2]);
-    return UElementaryComponent::notFunction(UElementaryComponent::andFunction(input1, input2));
+        input2 = this->pin_to_component.at(pin2).get().compute(this->pin_to_pin[pin2]);
+    return nts::notFunction(nts::andFunction(input1, input2));
 }

@@ -123,9 +123,10 @@ add_executable(nanotekspice
     src/components/gates/4071Component.cpp
     src/components/gates/4081Component.cpp
     src/components/advanced/4008Component.cpp
-  src/parsing/Parser.cpp
-  src/parsing/load_circuit.cpp
-  src/parsing/utils_parser.cpp)
+    src/components/BooleanOperations.cpp
+    src/parsing/Parser.cpp
+    src/parsing/load_circuit.cpp
+    src/parsing/utils_parser.cpp)
 
 # include directories
 target_compile_options(nanotekspice PRIVATE ${WARNING_FLAGS})

@@ -12,15 +12,15 @@
 #include <vector>
 
 // static function
-nts::Circuit nts::Parser::parse(std::string &filename)
-{
-    std::ifstream stream{filename};
-    nts::Parser parser{stream};
+// nts::Circuit nts::Parser::parse(std::string &filename)
+// {
+//     std::ifstream stream{filename};
+//     nts::Parser parser{stream};
 
-    if (!parser.isOpen())
-        throw nts::Parser::ParserException(PARSER_FILE_NOT_OPEN);
-    return parser.doParsing();
-}
+//     if (!parser.isOpen())
+//         throw nts::Parser::ParserException(PARSER_FILE_NOT_OPEN);
+//     return parser.doParsing();
+// }
 
 // ctor / dtor
 nts::Parser::Parser(std::ifstream &pfilestream) : filestream{pfilestream} {}
