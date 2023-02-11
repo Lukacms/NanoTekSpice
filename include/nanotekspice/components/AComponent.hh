@@ -22,6 +22,7 @@ namespace nts
             void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherpin) override;
             void simulate(std::size_t tick) override;
             void setNewState(nts::Tristate new_state) override;
+            std::string getName() const override;
 
         protected:
             std::string name;

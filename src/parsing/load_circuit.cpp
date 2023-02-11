@@ -29,6 +29,8 @@
 #include <nanotekspice/parsing/Parser.hh>
 #include <string>
 
+// file in which the parsing will be done
+
 template <typename T_component = std::string>
 static const std::map<const std::string &,
                       std::function<std::unique_ptr<nts::IComponent>(T_component)>>
@@ -108,8 +110,7 @@ static const std::map<const std::string &,
         {"2716", [](const std::string &name){return std::make_unique<nts::>(name);}}, */
     };
 
-// file in which the parsing will be done
-
+// main method to parse file
 nts::Circuit &nts::Parser::doParsing()
 {
     return this->circuit;

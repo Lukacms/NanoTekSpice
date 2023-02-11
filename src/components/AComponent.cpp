@@ -22,3 +22,8 @@ void nts::AComponent::setLink(std::size_t pin, nts::IComponent &other, std::size
 void nts::AComponent::simulate(std::size_t tick __attribute_maybe_unused__) {}
 
 void nts::AComponent::setNewState(nts::Tristate new_state __attribute_maybe_unused__) {}
+
+std::string nts::AComponent::getName() const
+{
+    return this->name;
+}

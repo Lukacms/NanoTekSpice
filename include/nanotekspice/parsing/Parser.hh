@@ -86,6 +86,8 @@ namespace nts
             // private methods
             bool hasChipset(const std::string &name);
             std::unique_ptr<nts::IComponent> createNamedComponent(std::string &name);
+            void createComponents();
+            void setComponentLinks();
     };
 
     // return src without comment (starting with '#' and ending with a newline).
