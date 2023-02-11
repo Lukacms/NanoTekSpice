@@ -10,14 +10,20 @@
 #include <exception>
 #include <fstream>
 #include <istream>
+#include <memory>
 #include <nanotekspice/Circuit.hh>
+#include <nanotekspice/components/IComponent.hh>
 #include <string>
 #include <vector>
 
-#define PARSER_FILE_NOT_OPEN "Ifstream given not open."
-#define PARSER_GETLINE_ERR "Error with getline."
-#define PARSER_EOF "End of file."
-#define PARSER_COMMENT_INDICATOR "#"
+constexpr char const *PARSER_FILE_NOT_OPEN = "Ifstream given not open.";
+constexpr char const *PARSER_GETLINE_ERR = "Error with getline.";
+constexpr char const *PARSER_EOF = "End of file.";
+constexpr char const *PARSER_COMMENT_INDICATOR = "#";
+
+constexpr char const *CHIPSET_IND = ".chipsets:";
+constexpr char const *LINKS_IND = ".links:";
+constexpr char const *PARSER_NO_CHIPSET = "No chipset given.";
 
 namespace nts
 {
@@ -68,11 +74,18 @@ namespace nts
             void loadLine();
             // load the entire file in a std::vector<std::string>
             void loadFile();
+            // create a new component
+            // function is generic
+            std::unique_ptr<nts::IComponent> createComponent(const std::string &type);
 
         private:
             std::ifstream &filestream;
             std::vector<std::string> contents{};
             nts::Circuit circuit{};
+
+            // private methods
+            bool hasChipset(const std::string &name);
+            std::unique_ptr<nts::IComponent> createNamedComponent(std::string &name);
     };
 
     // return src without comment (starting with '#' and ending with a newline).
