@@ -31,12 +31,11 @@
 
 // file in which the parsing will be done
 
-template <typename T_component = std::string>
-static const std::map<const std::string &,
-                      std::function<std::unique_ptr<nts::IComponent>(T_component)>>
-    components_map{
+static const std::map<const std::string,
+                      std::function<std::unique_ptr<nts::IComponent>(const std::string &)>>
+    COMPONENTS_MAP{
         {"input",
-         [](const std::string &name) {
+         [](const std::string &name) -> std::unique_ptr<nts::IComponent> {
              return std::make_unique<nts::InputComponent>(name);
          }},
         {"output",
@@ -110,8 +109,43 @@ static const std::map<const std::string &,
         {"2716", [](const std::string &name){return std::make_unique<nts::>(name);}}, */
     };
 
+// method to go with above map
+std::unique_ptr<nts::IComponent> nts::createNamedComponent(std::string &name,
+                                                           const std::string &type)
+{
+    for (auto elem : COMPONENTS_MAP) {
+        if (type == elem.first)
+            return elem.second(name);
+    }
+    throw nts::Parser::ParserException(UNKNOWN_CHIPSET + type);
+}
+
 // main method to parse file
 nts::Circuit &nts::Parser::doParsing()
 {
+    try {
+        this->loadFile();
+    } catch (nts::Parser::ParserException &e) {
+        if (std::string{e.what()} == PARSER_FILE_NOT_OPEN)
+            throw e;
+    }
+    try {
+        this->createComponents();
+        this->setComponentLinks();
+    } catch (nts::Parser::ParserException &) {
+    }
     return this->circuit;
 }
+
+// private methods called by doParsing
+void nts::Parser::createComponents()
+{
+    auto line = this->contents.begin();
+
+    while (line != this->contents.end() && *line != std::string{CHIPSET_IND})
+        line++;
+    if (line == this->contents.end())
+        throw nts::Parser::ParserException(PARSER_NO_CHIPSET);
+}
+
+void nts::Parser::setComponentLinks() {}

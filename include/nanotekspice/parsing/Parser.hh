@@ -22,8 +22,10 @@ constexpr char const *PARSER_EOF = "End of file.";
 constexpr char const *PARSER_COMMENT_INDICATOR = "#";
 
 constexpr char const *CHIPSET_IND = ".chipsets:";
+constexpr char const *UNKNOWN_CHIPSET = "chipset unknown: ";
 constexpr char const *LINKS_IND = ".links:";
 constexpr char const *PARSER_NO_CHIPSET = "No chipset given.";
+constexpr char const *PARSER_LINK_UNKNOWN = "Can't make a link with a nonexistant chipset.";
 
 namespace nts
 {
@@ -85,13 +87,16 @@ namespace nts
 
             // private methods
             bool hasChipset(const std::string &name);
-            std::unique_ptr<nts::IComponent> createNamedComponent(std::string &name);
+            // TODO
             void createComponents();
+            // TODO
             void setComponentLinks();
     };
 
     // return src without comment (starting with '#' and ending with a newline).
     // can be an empty line.
     [[nodiscard]] std::string without_comment(const std::string &src);
+    std::unique_ptr<nts::IComponent> createNamedComponent(std::string &name,
+                                                          const std::string &type);
 
 } // namespace nts

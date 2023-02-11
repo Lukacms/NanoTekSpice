@@ -33,7 +33,7 @@ CheckOptions:
   - key:             readability-identifier-naming.GlobalVariableCase
     value:           UPPER_CASE
   - key:             readability-identifier-naming.GlobalConstantCase
-    value:           lower_case
+    value:           UPPER_CASE
 
   - key:             readability-identifier-naming.NamespaceCase
     value:           lower_case
