@@ -18,7 +18,7 @@
 
 int main(int argc, char *const argv[])
 {
-    std::string filename{argv[1]};
+    std::string filename{std::string{argv[1]}};
     nts::Circuit circuit;
 
     try {

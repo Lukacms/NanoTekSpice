@@ -6,6 +6,7 @@
 */
 
 #include <cstddef>
+#include <functional>
 #include <iostream>
 #include <memory>
 #include <nanotekspice/Circuit.hh>
@@ -32,7 +33,9 @@ nts::Circuit::Circuit(const nts::Circuit &to_copy)
 
 nts::Circuit &nts::Circuit::operator=(Circuit &to_copy)
 {
-    /* for (auto component : to_copy.getComponentList().begin())
-        std::cout << component << "\n"; */
+    for (auto &component : to_copy.getComponentList()) {
+        this->component_list.emplace_back(std::move(component));
+    }
     return *this;
 }
+nts::Circuit::~Circuit() {}
