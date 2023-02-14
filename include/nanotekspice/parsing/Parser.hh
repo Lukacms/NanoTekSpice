@@ -18,6 +18,7 @@
 #include <vector>
 
 constexpr char const *PARSER_FILE_NOT_OPEN = "Ifstream given not open.";
+constexpr char const *PARSER_IS_DIRECTORY = "Ifstream given is a directory.";
 constexpr char const *PARSER_GETLINE_ERR = "Error with getline.";
 constexpr char const *PARSER_EOF = "End of file.";
 constexpr char const *PARSER_COMMENT_INDICATOR = "#";
@@ -25,8 +26,9 @@ constexpr char const *PARSER_COMMENT_INDICATOR = "#";
 constexpr char const *CHIPSET_IND = ".chipsets:";
 constexpr char const *UNKNOWN_CHIPSET = "chipset unknown: ";
 constexpr char const *LINKS_IND = ".links:";
-constexpr char const *PARSER_NO_CHIPSET = "No chipset given.";
+constexpr char const *PARSER_NO_CHIPSET = "No chipset given to make links.";
 constexpr char const *PARSER_LINK_UNKNOWN = "Can't make a link with a nonexistant chipset.";
+constexpr char const *PARSER_INVALID_CHIPSET = "chipset is invalid";
 
 namespace nts
 {

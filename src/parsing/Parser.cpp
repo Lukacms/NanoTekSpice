@@ -5,7 +5,9 @@
 ** Parser
 */
 
+#include <filesystem>
 #include <fstream>
+#include <ios>
 #include <iostream>
 #include <nanotekspice/Circuit.hh>
 #include <nanotekspice/parsing/Parser.hh>
@@ -18,7 +20,9 @@ nts::Circuit &nts::Parser::parse(std::string &filename)
     std::ifstream stream{filename};
     nts::Parser parser{stream};
 
-    if (!parser.isOpen())
+    if (std::filesystem::is_directory(filename))
+        throw nts::Parser::ParserException{std::string{PARSER_IS_DIRECTORY}};
+    if (!parser.isOpen() || !stream.good())
         throw nts::Parser::ParserException{std::string{PARSER_FILE_NOT_OPEN}};
     try {
         return parser.doParsing();

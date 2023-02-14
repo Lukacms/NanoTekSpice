@@ -20,9 +20,9 @@ namespace nts
     {
         public:
             Circuit() = default;
-            Circuit(const Circuit &) = default;
+            Circuit(const Circuit &);
             Circuit(Circuit &&) = delete;
-            Circuit &operator=(const Circuit &) = delete;
+            Circuit &operator=(Circuit &);
             Circuit &operator=(Circuit &&) = delete;
             ~Circuit() = default;
 

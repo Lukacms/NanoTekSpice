@@ -28,6 +28,7 @@
 #include <nanotekspice/components/special/OutputComponent.hh>
 #include <nanotekspice/components/special/TrueComponent.hh>
 #include <nanotekspice/parsing/Parser.hh>
+#include <sstream>
 #include <string>
 
 // file in which the parsing will be done
@@ -133,22 +134,47 @@ nts::Circuit &nts::Parser::doParsing()
     try {
         this->createComponents();
         this->setComponentLinks();
-    } catch (nts::Parser::ParserException &) {
+    } catch (nts::Parser::ParserException &e) {
+        throw e;
     }
     return this->circuit;
 }
 
 // private methods called by doParsing
-void nts::Parser::analyseLine(std::string &line) {}
+void nts::Parser::analyseLine(std::string &line)
+{
+    std::stringstream stream{line};
+    std::string type;
+    std::string name;
+
+    if (stream.eof())
+        return;
+    stream >> type;
+    stream >> name;
+    if (!stream.eof())
+        throw nts::Parser::ParserException{std::string{PARSER_INVALID_CHIPSET}};
+    try {
+        this->circuit.addComponent(nts::createNamedComponent(name, type));
+    } catch (nts::Parser::ParserException &e) {
+        throw e;
+    }
+}
 
 void nts::Parser::createComponents()
 {
     auto line = this->contents.begin();
 
-    while (line != this->contents.end() && *line != std::string{CHIPSET_IND})
+    while (line != this->contents.end() && *line != std::string{CHIPSET_IND}) {
         line++;
-    if (line == this->contents.end())
+        if (*line == std::string{LINKS_IND})
+            throw nts::Parser::ParserException{std::string{PARSER_NO_CHIPSET}};
+    }
+    if (line == this->contents.end() || ++line == this->contents.end())
         throw nts::Parser::ParserException(std::string{PARSER_NO_CHIPSET});
+    while (line != this->contents.end() && *line != std::string{LINKS_IND}) {
+        this->analyseLine(*line);
+        line++;
+    }
 }
 
 void nts::Parser::setComponentLinks() {}
