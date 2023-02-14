@@ -6,6 +6,7 @@
 */
 
 #include <functional>
+#include <iostream>
 #include <map>
 #include <memory>
 #include <nanotekspice/Circuit.hh>
@@ -127,7 +128,7 @@ nts::Circuit &nts::Parser::doParsing()
         this->loadFile();
     } catch (nts::Parser::ParserException &e) {
         if (std::string{e.what()} == PARSER_FILE_NOT_OPEN)
-            throw e;
+            throw &e;
     }
     try {
         this->createComponents();
@@ -138,6 +139,8 @@ nts::Circuit &nts::Parser::doParsing()
 }
 
 // private methods called by doParsing
+void nts::Parser::analyseLine(std::string &line) {}
+
 void nts::Parser::createComponents()
 {
     auto line = this->contents.begin();
@@ -145,7 +148,7 @@ void nts::Parser::createComponents()
     while (line != this->contents.end() && *line != std::string{CHIPSET_IND})
         line++;
     if (line == this->contents.end())
-        throw nts::Parser::ParserException(PARSER_NO_CHIPSET);
+        throw nts::Parser::ParserException(std::string{PARSER_NO_CHIPSET});
 }
 
 void nts::Parser::setComponentLinks() {}

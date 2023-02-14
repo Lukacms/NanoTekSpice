@@ -9,6 +9,7 @@
 
 #include <exception>
 #include <fstream>
+#include <iostream>
 #include <istream>
 #include <memory>
 #include <nanotekspice/Circuit.hh>
@@ -50,13 +51,10 @@ namespace nts
                     ~ParserException() override = default;
                     ParserException &operator=(ParserException const &to_copy) = delete;
 
-                    [[nodiscard]] const char *what() const noexcept override
-                    {
-                        return this->err_msg.c_str();
-                    }
+                    const char *what() const noexcept override { return this->err_msg.c_str(); }
 
                 private:
-                    const std::string &err_msg;
+                    std::string err_msg;
             };
 
             // static function to parse
@@ -89,6 +87,7 @@ namespace nts
             bool hasChipset(const std::string &name);
             // TODO
             void createComponents();
+            void analyseLine(std::string &line);
             // TODO
             void setComponentLinks();
     };

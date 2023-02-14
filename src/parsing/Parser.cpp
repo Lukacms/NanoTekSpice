@@ -6,6 +6,7 @@
 */
 
 #include <fstream>
+#include <iostream>
 #include <nanotekspice/Circuit.hh>
 #include <nanotekspice/parsing/Parser.hh>
 #include <string>
@@ -18,8 +19,12 @@ nts::Circuit &nts::Parser::parse(std::string &filename)
     nts::Parser parser{stream};
 
     if (!parser.isOpen())
-        throw nts::Parser::ParserException(PARSER_FILE_NOT_OPEN);
-    return parser.doParsing();
+        throw nts::Parser::ParserException{std::string{PARSER_FILE_NOT_OPEN}};
+    try {
+        return parser.doParsing();
+    } catch (nts::Parser::ParserException &e) {
+        throw e;
+    }
 }
 
 // ctor / dtor
@@ -50,8 +55,6 @@ void nts::Parser::loadLine()
     if (!this->isOpen())
         throw nts::Parser::ParserException(PARSER_FILE_NOT_OPEN);
     std::getline(this->filestream, line);
-    if (line.empty())
-        throw nts::Parser::ParserException(PARSER_EOF);
     if (!(line = nts::without_comment(line)).empty())
         this->contents.push_back(line);
 }
