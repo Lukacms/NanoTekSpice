@@ -22,6 +22,7 @@ int main(int argc, char *const argv[])
     nts::Circuit circuit;
 
     try {
+        // when doing that, destructor segfault
         circuit = nts::Parser::parse(filename);
     } catch (nts::Parser::ParserException &e) {
         std::cout << "Exception while parsing: " << e.what() << "\n";

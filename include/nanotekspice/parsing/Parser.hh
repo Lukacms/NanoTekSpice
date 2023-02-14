@@ -29,6 +29,9 @@ constexpr char const *LINKS_IND = ".links:";
 constexpr char const *PARSER_NO_CHIPSET = "No chipset given to make links.";
 constexpr char const *PARSER_LINK_UNKNOWN = "Can't make a link with a nonexistant chipset.";
 constexpr char const *PARSER_INVALID_CHIPSET = "chipset is invalid";
+constexpr char const *PARSER_INVALID_LINK_FORMAT = "invalid link format: ";
+
+constexpr int LINKS_ARGS_SIZE = 4;
 
 namespace nts
 {
@@ -87,11 +90,11 @@ namespace nts
 
             // private methods
             bool hasChipset(const std::string &name);
-            // TODO
             void createComponents();
             void analyseLine(std::string &line);
             // TODO
             void setComponentLinks();
+            void setLinkLine(std::string &line);
     };
 
     // return src without comment (starting with '#' and ending with a newline).

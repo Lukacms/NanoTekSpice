@@ -5,6 +5,7 @@
 ** load_circuit
 */
 
+#include <algorithm>
 #include <functional>
 #include <iostream>
 #include <map>
@@ -140,18 +141,16 @@ nts::Circuit &nts::Parser::doParsing()
     return this->circuit;
 }
 
-// private methods called by doParsing
+// private methods called by doParsing => creating components
 void nts::Parser::analyseLine(std::string &line)
 {
     std::stringstream stream{line};
     std::string type;
     std::string name;
 
-    if (stream.eof())
-        return;
     stream >> type;
     stream >> name;
-    if (!stream.eof())
+    if (!stream.eof() || type.empty() || name.empty())
         throw nts::Parser::ParserException{std::string{PARSER_INVALID_CHIPSET}};
     try {
         this->circuit.addComponent(nts::createNamedComponent(name, type));
@@ -174,6 +173,27 @@ void nts::Parser::createComponents()
     while (line != this->contents.end() && *line != std::string{LINKS_IND}) {
         this->analyseLine(*line);
         line++;
+    }
+}
+
+// private methods called by doParsing => setting links between components
+void nts::Parser::setLinkLine(std::string &line)
+{
+    std::stringstream stream{line};
+    std::vector<std::string> links;
+    std::string replacing{stream.str()};
+    std::string tmp;
+
+    std::replace(replacing.begin(), replacing.end(), ':', ' ');
+    stream = std::stringstream{replacing};
+    while (!stream.eof()) {
+        stream >> tmp;
+        links.push_back(tmp);
+    }
+    if (links.size() != LINKS_ARGS_SIZE)
+        throw nts::Parser::ParserException{std::string{PARSER_INVALID_LINK_FORMAT} + line};
+    try {
+    } catch (std::exception &e) {
     }
 }
 

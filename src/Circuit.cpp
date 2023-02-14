@@ -14,6 +14,8 @@
 #include <utility>
 #include <vector>
 
+// methods
+
 std::vector<std::unique_ptr<nts::IComponent>> &nts::Circuit::getComponentList()
 {
     return this->component_list;
@@ -22,6 +24,15 @@ std::vector<std::unique_ptr<nts::IComponent>> &nts::Circuit::getComponentList()
 void nts::Circuit::addComponent(std::unique_ptr<nts::IComponent> new_component)
 {
     this->component_list.emplace_back(std::move(new_component));
+}
+
+std::reference_wrapper<nts::IComponent> nts::Circuit::getComponentByName(const std::string &name)
+{
+    for (auto &component : this->component_list) {
+        if (component->getName() == name)
+            return std::ref(*component);
+    }
+    throw nts::Circuit::CircuitError();
 }
 
 // ctor by copy
@@ -38,4 +49,7 @@ nts::Circuit &nts::Circuit::operator=(Circuit &to_copy)
     }
     return *this;
 }
+
+// dtor
+
 nts::Circuit::~Circuit() {}
