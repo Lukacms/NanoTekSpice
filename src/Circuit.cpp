@@ -36,6 +36,19 @@ std::reference_wrapper<nts::IComponent> nts::Circuit::getComponentByName(const s
     throw nts::Circuit::CircuitError();
 }
 
+std::vector<std::reference_wrapper<nts::IComponent>>
+nts::Circuit::getComponentsByType(nts::ComponentType type)
+{
+    std::vector<std::reference_wrapper<nts::IComponent>> dest;
+
+    for (auto component = this->component_list.begin(); component != this->component_list.end();
+         component++) {
+        if (component->get()->getType() == type)
+            dest.emplace_back(std::ref(*(*component)));
+    }
+    return dest;
+}
+
 // ctor by copy
 nts::Circuit::Circuit(nts::Circuit &to_copy)
 {
@@ -46,9 +59,23 @@ nts::Circuit::Circuit(nts::Circuit &to_copy)
 
 nts::Circuit &nts::Circuit::operator=(Circuit &to_copy)
 {
+    std::cout << "copy constructor\n";
+    std::cout << "infos: " << to_copy.component_list.size() << "\n";
     for (auto component = to_copy.component_list.begin(); component < to_copy.component_list.end();
          component++)
         this->component_list.emplace_back(std::move(*component));
+    std::cout << "oui\n";
+    return *this;
+}
+
+nts::Circuit &nts::Circuit::operator=(Circuit &&to_move)
+{
+    std::cout << "move constructor\n";
+    std::cout << "infos: " << to_move.component_list.empty() << "\n";
+    /* for (auto component = to_move.component_list.begin(); component <
+       to_move.component_list.end(); component++)
+        this->component_list.emplace_back(std::move(*component)); */
+    std::cout << "end of constructor by move: " << this->getComponentList().empty() << "\n";
     return *this;
 }
 
