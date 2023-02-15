@@ -55,3 +55,14 @@ nts::Circuit &nts::Circuit::operator=(Circuit &to_copy)
 // dtor
 
 nts::Circuit::~Circuit() {}
+
+// getters / setters
+std::size_t nts::Circuit::getTick() const
+{
+    return this->ticks;
+}
+
+void nts::Circuit::addTick()
+{
+    this->ticks++;
+}

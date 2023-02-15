@@ -7,10 +7,12 @@
 
 #pragma once
 
+#include <cstddef>
 #include <exception>
 #include <functional>
 #include <memory>
 #include <nanotekspice/components/IComponent.hh>
+#include <string>
 #include <vector>
 
 #define EPITECH_SUCCESS 0
@@ -37,6 +39,10 @@ namespace nts
             void addComponent(std::unique_ptr<nts::IComponent> new_component);
             std::reference_wrapper<nts::IComponent> getComponentByName(const std::string &name);
 
+            // getters / setters
+            std::size_t getTick() const;
+            void addTick();
+
             class CircuitError : public std::exception
             {
                 public:
@@ -49,7 +55,13 @@ namespace nts
 
         private:
             std::vector<std::unique_ptr<nts::IComponent>> component_list;
+            std::size_t ticks{0};
     };
 
     int main_loop(nts::Circuit &circuit);
+    // functions to call during loop
+    int simulate(nts::Circuit &circuit, std::string &line);
+    int input_change(nts::Circuit &circuit, std::string &line);
+    int display(nts::Circuit &circuit, std::string &line);
+    int loop(nts::Circuit &circuit, std::string &line);
 } // namespace nts
