@@ -23,9 +23,11 @@ namespace nts
             void simulate(std::size_t tick) override;
             void setNewState(nts::Tristate new_state) override;
             std::string getName() const override;
+            ComponentType getType() const override;
 
         protected:
             std::string name;
+            ComponentType type{nts::ComponentType::Other};
             std::unordered_map<std::size_t, std::reference_wrapper<nts::IComponent>>
                 pin_to_component;
             std::unordered_map<std::size_t, std::size_t> pin_to_pin;

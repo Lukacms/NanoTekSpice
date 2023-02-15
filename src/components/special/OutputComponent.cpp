@@ -12,6 +12,7 @@
 
 nts::OutputComponent::OutputComponent(const std::string &cname)
 {
+    this->type = nts::ComponentType::Output;
     this->name = cname;
 }
 

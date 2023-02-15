@@ -11,6 +11,7 @@
 
 nts::InputComponent::InputComponent(const std::string &cname)
 {
+    this->type = nts::ComponentType::Input;
     this->name = cname;
 }
 
