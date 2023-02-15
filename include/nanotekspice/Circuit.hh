@@ -27,7 +27,7 @@ namespace nts
     {
         public:
             Circuit() = default;
-            Circuit(const Circuit &);
+            Circuit(Circuit &);
             Circuit(Circuit &&) = delete;
             Circuit &operator=(Circuit &);
             Circuit &operator=(Circuit &&) = delete;
@@ -50,4 +50,6 @@ namespace nts
         private:
             std::vector<std::unique_ptr<nts::IComponent>> component_list;
     };
+
+    int main_loop(nts::Circuit &circuit);
 } // namespace nts

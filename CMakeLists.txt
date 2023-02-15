@@ -106,6 +106,7 @@ endif()
 add_executable(
   nanotekspice
   src/main.cpp
+  src/launch.cpp
   src/Circuit.cpp
   src/components/AComponent.cpp
   src/components/elementary/AndComponent.cpp

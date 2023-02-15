@@ -5,6 +5,7 @@
 ** Circuit
 */
 
+#include <algorithm>
 #include <cstddef>
 #include <functional>
 #include <iostream>
@@ -36,17 +37,18 @@ std::reference_wrapper<nts::IComponent> nts::Circuit::getComponentByName(const s
 }
 
 // ctor by copy
-nts::Circuit::Circuit(const nts::Circuit &to_copy)
+nts::Circuit::Circuit(nts::Circuit &to_copy)
 {
-    for (std::size_t i = 0; to_copy.component_list[i]; i++)
-        this->component_list.emplace_back(std::move(to_copy.component_list[i].get()));
+    for (auto component = to_copy.component_list.begin(); component < to_copy.component_list.end();
+         component++)
+        this->component_list.emplace_back(std::move(*component));
 }
 
 nts::Circuit &nts::Circuit::operator=(Circuit &to_copy)
 {
-    for (auto &component : to_copy.getComponentList()) {
-        this->component_list.emplace_back(std::move(component));
-    }
+    for (auto component = to_copy.component_list.begin(); component < to_copy.component_list.end();
+         component++)
+        this->component_list.emplace_back(std::move(*component));
     return *this;
 }
 

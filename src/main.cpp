@@ -32,10 +32,10 @@ int main(int argc, char *const argv[])
     filename = std::string{argv[1]};
     try {
         // when doing that, destructor segfault
-        /* circuit =  */ nts::Parser::parse(filename);
+        circuit = nts::Parser::parse(filename);
     } catch (nts::Parser::ParserException &e) {
         std::cout << "Exception while parsing: " << e.what() << "\n";
         return EPITECH_FAILURE;
     }
-    return EPITECH_SUCCESS;
+    return nts::main_loop(circuit);
 }
