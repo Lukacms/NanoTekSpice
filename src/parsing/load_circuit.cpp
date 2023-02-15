@@ -6,6 +6,8 @@
 */
 
 #include <algorithm>
+#include <cstddef>
+#include <cstdlib>
 #include <functional>
 #include <iostream>
 #include <map>
@@ -174,6 +176,7 @@ void nts::Parser::createComponents()
         this->analyseLine(*line);
         line++;
     }
+    this->contents.erase(this->contents.begin(), line);
 }
 
 // private methods called by doParsing => setting links between components
@@ -183,6 +186,8 @@ void nts::Parser::setLinkLine(std::string &line)
     std::vector<std::string> links;
     std::string replacing{stream.str()};
     std::string tmp;
+    long long cpin;
+    long long lpin;
 
     std::replace(replacing.begin(), replacing.end(), ':', ' ');
     stream = std::stringstream{replacing};
@@ -192,9 +197,34 @@ void nts::Parser::setLinkLine(std::string &line)
     }
     if (links.size() != LINKS_ARGS_SIZE)
         throw nts::Parser::ParserException{std::string{PARSER_INVALID_LINK_FORMAT} + line};
+    cpin = std::atoll(links.at(1).c_str());
+    lpin = std::atoll(links.at(3).c_str());
+    if (cpin < 0 || lpin < 0)
+        throw nts::Parser::ParserException{std::string{PIN_OUT_OF_BOND}};
     try {
-    } catch (std::exception &e) {
+        this->circuit.getComponentByName(links.at(0))
+            .get()
+            .setLink(static_cast<std::size_t>(cpin), this->circuit.getComponentByName(links.at(2)),
+                     static_cast<std::size_t>(lpin));
+    } catch (nts::Circuit::CircuitError &) {
+        throw nts::Parser::ParserException{std::string{PARSER_LINK_UNKNOWN}};
     }
 }
 
-void nts::Parser::setComponentLinks() {}
+void nts::Parser::setComponentLinks()
+{
+    auto line = this->contents.begin();
+
+    while (line != this->contents.end() && *line != std::string{LINKS_IND}) {
+        line++;
+    }
+    /* if (line == this->contents.end() || ++line == this->contents.end())
+        throw nts::Parser::ParserException(std::string{PARSER_NO_LINKS}); */
+    while (line != this->contents.end()) {
+        try {
+            this->setLinkLine(*line);
+        } catch (nts::Parser::ParserException &e) {
+            throw e;
+        }
+    }
+}

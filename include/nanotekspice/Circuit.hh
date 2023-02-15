@@ -38,6 +38,7 @@ namespace nts
             {
                 public:
                     CircuitError() = default;
+                    CircuitError(const CircuitError &) = default;
                     ~CircuitError() override = default;
 
                     const char *what() const noexcept override { return COMPONENT_NOT_FOUND; }
