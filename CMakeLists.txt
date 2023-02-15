@@ -2,8 +2,8 @@
 
 # mkdir build && cd build
 
-# cmake .. -GNinja -DCMAKE_BUILD_TYPE=Build -DCMAKE_C_COMPILER=clang
-# -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_EXPORT_COMPILE_COMMANDS=true
+# cmake .. -GNinja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+# -DCMAKE_EXPORT_COMPILE_COMMANDS=true
 
 # ninja
 
@@ -81,8 +81,9 @@ if(USE_CLANG_TIDY)
     NAMES "clang-tidy"
     DOC "Path to clang-tidy executable")
   if(CLANG_TIDY_EXE)
-    if(DEFINED REDOOM_CLANG_TIDY_FLAGS)
-      set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}" "${REDOOM_CLANG_TIDY_FLAGS}")
+    if(DEFINED NANOTEKSPICE_CLANG_TIDY_FLAGS)
+      set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}"
+                               "${NANOTEKSPICE_CLANG_TIDY_FLAGS}")
     else()
       set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}")
     endif()
@@ -102,7 +103,31 @@ else()
 endif()
 
 # adding executables
-add_executable(nanotekspice src/main.cpp)
+add_executable(
+  nanotekspice
+  src/main.cpp
+  src/Circuit.cpp
+  src/components/AComponent.cpp
+  src/components/elementary/AndComponent.cpp
+  src/components/elementary/OrComponent.cpp
+  src/components/elementary/NotComponent.cpp
+  src/components/elementary/XorComponent.cpp
+  src/components/special/ClockComponent.cpp
+  src/components/special/FalseComponent.cpp
+  src/components/special/InputComponent.cpp
+  src/components/special/OutputComponent.cpp
+  src/components/special/TrueComponent.cpp
+  src/components/gates/4001Component.cpp
+  src/components/gates/4011Component.cpp
+  src/components/gates/4030Component.cpp
+  src/components/gates/4069Component.cpp
+  src/components/gates/4071Component.cpp
+  src/components/gates/4081Component.cpp
+  src/components/advanced/4008Component.cpp
+  src/components/BooleanOperations.cpp
+  src/parsing/Parser.cpp
+  src/parsing/load_circuit.cpp
+  src/parsing/utils_parser.cpp)
 
 # include directories
 target_compile_options(nanotekspice PRIVATE ${WARNING_FLAGS})
