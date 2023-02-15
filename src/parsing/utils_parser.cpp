@@ -5,6 +5,7 @@
 ** utils_parser
 */
 
+#include "nanotekspice/Circuit.hh"
 #include "nanotekspice/components/AComponent.hh"
 #include <nanotekspice/parsing/Parser.hh>
 #include <string>
@@ -20,10 +21,10 @@ std::string nts::without_comment(const std::string &src)
 
 // in Parser class
 
-bool nts::Parser::hasChipset(const std::string &name)
+bool nts::hasChipset(const std::string &name, nts::Circuit &circuit)
 {
-    for (auto component = this->circuit.getComponentList().begin();
-         component != this->circuit.getComponentList().end(); component++) {
+    for (auto component = circuit.getComponentList().begin();
+         component != circuit.getComponentList().end(); component++) {
         if (component->get()->getName() == name)
             return true;
     }

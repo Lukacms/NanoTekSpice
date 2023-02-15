@@ -32,7 +32,9 @@ int main(int argc, char *const argv[])
     filename = std::string{argv[1]};
     try {
         // when doing that, destructor segfault
-        circuit = nts::Parser::parse(filename);
+        // circuit = nts::Parser::parse(filename);
+        // circuit = std::move(nts::Parser::parse(filename));
+        nts::Parser::parse(filename, circuit);
     } catch (nts::Parser::ParserException &e) {
         std::cout << "Exception while parsing: " << e.what() << "\n";
         return EPITECH_FAILURE;

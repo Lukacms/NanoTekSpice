@@ -53,6 +53,7 @@ namespace nts
             {
                 public:
                     ParserException(const std::string &perr_msg) : err_msg{perr_msg} {}
+
                     ParserException(ParserException const &to_copy) = default;
                     ParserException(ParserException &&to_move) = default;
                     ~ParserException() override = default;
@@ -65,10 +66,10 @@ namespace nts
             };
 
             // static function to parse
-            static nts::Circuit &parse(std::string &filename);
+            static void parse(std::string &filename, nts::Circuit &circuit);
 
             // "main" parsing function
-            nts::Circuit &doParsing();
+            void doParsing(nts::Circuit &circuit);
 
             // getters / setters
             // [[nodiscard]] => compiler will warn if return of function is not used
@@ -83,25 +84,25 @@ namespace nts
             void loadFile();
             // create a new component
             // function is generic
-            std::unique_ptr<nts::IComponent> createComponent(const std::string &type);
+            std::unique_ptr<nts::IComponent> createComponent(const std::string &type,
+                                                             nts::Circuit &circuit);
 
         private:
             std::ifstream &filestream;
             std::vector<std::string> contents{};
-            nts::Circuit circuit{};
 
             // private methods
-            bool hasChipset(const std::string &name);
-            void createComponents();
-            void analyseLine(std::string &line);
+            void createComponents(nts::Circuit &circuit);
+            void analyseLine(std::string &line, nts::Circuit &circuit);
             // TODO
-            void setComponentLinks();
-            void setLinkLine(std::string &line);
+            void setComponentLinks(nts::Circuit &circuit);
+            void setLinkLine(std::string &line, nts::Circuit &circuit);
     };
 
     // return src without comment (starting with '#' and ending with a newline).
     // can be an empty line.
     [[nodiscard]] std::string without_comment(const std::string &src);
+    bool hasChipset(const std::string &name, nts::Circuit &circuit);
     std::unique_ptr<nts::IComponent> createNamedComponent(std::string &name,
                                                           const std::string &type);
 
