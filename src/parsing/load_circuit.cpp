@@ -220,11 +220,13 @@ void nts::Parser::setComponentLinks()
     }
     /* if (line == this->contents.end() || ++line == this->contents.end())
         throw nts::Parser::ParserException(std::string{PARSER_NO_LINKS}); */
+    line++;
     while (line != this->contents.end()) {
         try {
             this->setLinkLine(*line);
         } catch (nts::Parser::ParserException &e) {
             throw e;
         }
+        line++;
     }
 }
