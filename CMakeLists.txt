@@ -108,6 +108,10 @@ add_executable(
   src/main.cpp
   src/launch.cpp
   src/Circuit.cpp
+  src/commands/loop.cpp
+  src/commands/display.cpp
+  src/commands/simulate.cpp
+  src/commands/input_change.cpp
   src/components/AComponent.cpp
   src/components/elementary/AndComponent.cpp
   src/components/elementary/OrComponent.cpp
