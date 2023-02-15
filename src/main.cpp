@@ -16,11 +16,20 @@
 #include <nanotekspice/components/special/TrueComponent.hh>
 #include <string>
 
+static int display_help()
+{
+    std::cout << HELP << "\n";
+    return EPITECH_FAILURE;
+}
+
 int main(int argc, char *const argv[])
 {
-    std::string filename{std::string{argv[1]}};
+    std::string filename;
     nts::Circuit circuit;
 
+    if (argc != 2)
+        return display_help();
+    filename = std::string{argv[1]};
     try {
         // when doing that, destructor segfault
         /* circuit =  */ nts::Parser::parse(filename);

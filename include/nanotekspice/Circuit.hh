@@ -16,6 +16,9 @@
 #define EPITECH_SUCCESS 0
 #define EPITECH_FAILURE 84
 
+constexpr char const *HELP = "USAGE: ./nanotekspice [filepath]\n\
+    [filepath] is the path to the .nts config file.";
+
 constexpr char const *COMPONENT_NOT_FOUND = "component not found";
 
 namespace nts
