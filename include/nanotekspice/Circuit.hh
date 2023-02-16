@@ -18,7 +18,7 @@
 constexpr int const EPITECH_SUCCESS = 0;
 constexpr int const EPITECH_FAILURE = 84;
 
-constexpr int const UNUSED_PIN = 0;
+constexpr int const UNUSED_PIN = 1;
 
 constexpr char const *HELP = "USAGE: ./nanotekspice [filepath]\n\
     [filepath] is the path to the .nts config file.";

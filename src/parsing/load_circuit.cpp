@@ -205,6 +205,10 @@ void nts::Parser::setLinkLine(std::string &line, nts::Circuit &circuit)
             .get()
             .setLink(static_cast<std::size_t>(cpin), circuit.getComponentByName(links.at(2)),
                      static_cast<std::size_t>(lpin));
+        circuit.getComponentByName(links.at(2))
+            .get()
+            .setLink(static_cast<std::size_t>(lpin), circuit.getComponentByName(links.at(0)),
+                     static_cast<std::size_t>(cpin));
     } catch (nts::Circuit::CircuitError &) {
         throw nts::Parser::ParserException{std::string{PARSER_LINK_UNKNOWN}};
     }
