@@ -15,7 +15,7 @@
 #include <vector>
 
 // static function
-nts::Circuit &nts::Parser::parse(std::string &filename)
+void nts::Parser::parse(std::string &filename, nts::Circuit &circuit)
 {
     std::ifstream stream{filename};
     nts::Parser parser{stream};
@@ -25,7 +25,7 @@ nts::Circuit &nts::Parser::parse(std::string &filename)
     if (!parser.isOpen() || !stream.good())
         throw nts::Parser::ParserException{std::string{PARSER_FILE_NOT_OPEN}};
     try {
-        return parser.doParsing();
+        return parser.doParsing(circuit);
     } catch (nts::Parser::ParserException &e) {
         throw e;
     }

@@ -5,12 +5,14 @@
 ** InputComponent
 */
 
+#include <iostream>
 #include <nanotekspice/components/special/InputComponent.hh>
 
 /* Constructor & Destructor */
 
 nts::InputComponent::InputComponent(const std::string &cname)
 {
+    this->type = nts::ComponentType::Input;
     this->name = cname;
 }
 

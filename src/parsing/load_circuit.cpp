@@ -126,7 +126,7 @@ std::unique_ptr<nts::IComponent> nts::createNamedComponent(std::string &name,
 }
 
 // main method to parse file
-nts::Circuit &nts::Parser::doParsing()
+void nts::Parser::doParsing(nts::Circuit &circuit)
 {
     try {
         this->loadFile();
@@ -135,16 +135,15 @@ nts::Circuit &nts::Parser::doParsing()
             throw &e;
     }
     try {
-        this->createComponents();
-        this->setComponentLinks();
+        this->createComponents(circuit);
+        this->setComponentLinks(circuit);
     } catch (nts::Parser::ParserException &e) {
         throw e;
     }
-    return this->circuit;
 }
 
 // private methods called by doParsing => creating components
-void nts::Parser::analyseLine(std::string &line)
+void nts::Parser::analyseLine(std::string &line, nts::Circuit &circuit)
 {
     std::stringstream stream{line};
     std::string type;
@@ -155,13 +154,13 @@ void nts::Parser::analyseLine(std::string &line)
     if (!stream.eof() || type.empty() || name.empty())
         throw nts::Parser::ParserException{std::string{PARSER_INVALID_CHIPSET}};
     try {
-        this->circuit.addComponent(nts::createNamedComponent(name, type));
+        circuit.addComponent(nts::createNamedComponent(name, type));
     } catch (nts::Parser::ParserException &e) {
         throw e;
     }
 }
 
-void nts::Parser::createComponents()
+void nts::Parser::createComponents(nts::Circuit &circuit)
 {
     auto line = this->contents.begin();
 
@@ -173,14 +172,14 @@ void nts::Parser::createComponents()
     if (line == this->contents.end() || ++line == this->contents.end())
         throw nts::Parser::ParserException(std::string{PARSER_NO_CHIPSET});
     while (line != this->contents.end() && *line != std::string{LINKS_IND}) {
-        this->analyseLine(*line);
+        this->analyseLine(*line, circuit);
         line++;
     }
     this->contents.erase(this->contents.begin(), line);
 }
 
 // private methods called by doParsing => setting links between components
-void nts::Parser::setLinkLine(std::string &line)
+void nts::Parser::setLinkLine(std::string &line, nts::Circuit &circuit)
 {
     std::stringstream stream{line};
     std::vector<std::string> links;
@@ -202,31 +201,33 @@ void nts::Parser::setLinkLine(std::string &line)
     if (cpin < 0 || lpin < 0)
         throw nts::Parser::ParserException{std::string{PIN_OUT_OF_BOND}};
     try {
-        this->circuit.getComponentByName(links.at(0))
+        circuit.getComponentByName(links.at(0))
             .get()
-            .setLink(static_cast<std::size_t>(cpin), this->circuit.getComponentByName(links.at(2)),
+            .setLink(static_cast<std::size_t>(cpin), circuit.getComponentByName(links.at(2)),
                      static_cast<std::size_t>(lpin));
+        circuit.getComponentByName(links.at(2))
+            .get()
+            .setLink(static_cast<std::size_t>(lpin), circuit.getComponentByName(links.at(0)),
+                     static_cast<std::size_t>(cpin));
     } catch (nts::Circuit::CircuitError &) {
         throw nts::Parser::ParserException{std::string{PARSER_LINK_UNKNOWN}};
     }
 }
 
-void nts::Parser::setComponentLinks()
+void nts::Parser::setComponentLinks(nts::Circuit &circuit)
 {
     auto line = this->contents.begin();
 
     while (line != this->contents.end() && *line != std::string{LINKS_IND}) {
         line++;
     }
-    /* if (line == this->contents.end() || ++line == this->contents.end())
-        throw nts::Parser::ParserException(std::string{PARSER_NO_LINKS}); */
-    line++;
-    while (line != this->contents.end()) {
+    if (line == this->contents.end())
+        return;
+    while (++line != this->contents.end()) {
         try {
-            this->setLinkLine(*line);
+            this->setLinkLine(*line, circuit);
         } catch (nts::Parser::ParserException &e) {
             throw e;
         }
-        line++;
     }
 }

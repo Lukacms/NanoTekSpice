@@ -1,5 +1,4 @@
-﻿---
-AccessModifierOffset: '0'
+﻿AccessModifierOffset: '0'
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: 'false'
 AlignConsecutiveDeclarations: 'false'
@@ -26,8 +25,7 @@ IndentCaseLabels: true
 IndentPPDirectives: BeforeHash
 Language: Cpp
 NamespaceIndentation: All
+SeparateDefinitionBlocks: Always
 SpacesBeforeTrailingComments: '1'
 TabWidth: '4'
 UseTab: Never
-
-...

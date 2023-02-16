@@ -14,6 +14,8 @@ namespace nts
 {
     enum Tristate { Undefined = (-true), True = true, False = false };
 
+    enum ComponentType { Input, Output, Clock, Other };
+
     class IComponent
     {
         public:
@@ -30,5 +32,6 @@ namespace nts
             virtual nts::Tristate compute(std ::size_t pin) = 0;
             virtual void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherpin) = 0;
             virtual std::string getName() const = 0;
+            virtual ComponentType getType() const = 0;
     };
 } // namespace nts

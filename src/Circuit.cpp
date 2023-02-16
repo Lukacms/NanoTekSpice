@@ -5,6 +5,7 @@
 ** Circuit
 */
 
+#include <algorithm>
 #include <cstddef>
 #include <functional>
 #include <iostream>
@@ -35,21 +36,72 @@ std::reference_wrapper<nts::IComponent> nts::Circuit::getComponentByName(const s
     throw nts::Circuit::CircuitError();
 }
 
-// ctor by copy
-nts::Circuit::Circuit(const nts::Circuit &to_copy)
+void nts::Circuit::changeValueOfComponent(const std::string &name, nts::Tristate value)
 {
-    for (std::size_t i = 0; to_copy.component_list[i]; i++)
-        this->component_list.emplace_back(std::move(to_copy.component_list[i].get()));
+    for (auto &component : this->component_list) {
+        if (component->getName() == name &&
+            (component->getType() == Input || component->getType() == Clock)) {
+            component->setNewState(value);
+            return;
+        }
+    }
+    throw nts::Circuit::CircuitError();
+}
+
+std::vector<std::reference_wrapper<nts::IComponent>>
+nts::Circuit::getComponentsByType(nts::ComponentType type)
+{
+    std::vector<std::reference_wrapper<nts::IComponent>> dest;
+
+    for (auto component = this->component_list.begin(); component != this->component_list.end();
+         component++) {
+        if (component->get()->getType() == type)
+            dest.emplace_back(std::ref(*(*component)));
+    }
+    return dest;
+}
+
+// ctor by copy
+nts::Circuit::Circuit(nts::Circuit &to_copy)
+{
+    for (auto component = to_copy.component_list.begin(); component < to_copy.component_list.end();
+         component++)
+        this->component_list.emplace_back(std::move(*component));
 }
 
 nts::Circuit &nts::Circuit::operator=(Circuit &to_copy)
 {
-    for (auto &component : to_copy.getComponentList()) {
-        this->component_list.emplace_back(std::move(component));
-    }
+    std::cout << "copy constructor\n";
+    std::cout << "infos: " << to_copy.component_list.size() << "\n";
+    for (auto component = to_copy.component_list.begin(); component < to_copy.component_list.end();
+         component++)
+        this->component_list.emplace_back(std::move(*component));
+    std::cout << "oui\n";
+    return *this;
+}
+
+nts::Circuit &nts::Circuit::operator=(Circuit &&to_move)
+{
+    std::cout << "move constructor\n";
+    std::cout << "infos: " << to_move.component_list.empty() << "\n";
+    /* for (auto component = to_move.component_list.begin(); component <
+       to_move.component_list.end(); component++)
+        this->component_list.emplace_back(std::move(*component)); */
+    std::cout << "end of constructor by move: " << this->getComponentList().empty() << "\n";
     return *this;
 }
 
 // dtor
 
 nts::Circuit::~Circuit() {}
+
+// getters / setters
+std::size_t nts::Circuit::getTick() const
+{
+    return this->ticks;
+}
+
+void nts::Circuit::addTick()
+{
+    this->ticks++;
+}

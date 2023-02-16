@@ -5,6 +5,7 @@
 ** AComponent
 */
 
+#include "nanotekspice/components/IComponent.hh"
 #include <nanotekspice/components/AComponent.hh>
 
 /* Destructor */
@@ -26,4 +27,9 @@ void nts::AComponent::setNewState(nts::Tristate new_state __attribute_maybe_unus
 std::string nts::AComponent::getName() const
 {
     return this->name;
+}
+
+nts::ComponentType nts::AComponent::getType() const
+{
+    return this->type;
 }

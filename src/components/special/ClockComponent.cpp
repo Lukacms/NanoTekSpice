@@ -5,12 +5,14 @@
 ** ClockComponent
 */
 
+#include "nanotekspice/components/IComponent.hh"
 #include <nanotekspice/components/special/ClockComponent.hh>
 
 /* Constructor & Destructor */
 
 nts::ClockComponent::ClockComponent(const std::string &cname)
 {
+    this->type = nts::ComponentType::Clock;
     this->name = cname;
 }
 
