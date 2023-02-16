@@ -24,5 +24,6 @@ int nts::loop(nts::Circuit &circuit, std::string &line)
         nts::simulate(circuit, line);
         nts::display(circuit, line);
     }
+    signal(SIGINT, SIG_DFL);
     return EPITECH_SUCCESS;
 }
