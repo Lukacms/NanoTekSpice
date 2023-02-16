@@ -43,6 +43,7 @@ namespace nts
 
             std::vector<std::reference_wrapper<IComponent>>
             getComponentsByType(nts::ComponentType type);
+            void changeValueOfComponent(const std::string &name, nts::Tristate value);
 
             // getters / setters
             std::size_t getTick() const;
@@ -63,10 +64,4 @@ namespace nts
             std::size_t ticks{0};
     };
 
-    int main_loop(nts::Circuit &circuit);
-    // functions to call during loop
-    int simulate(nts::Circuit &circuit, std::string &line);
-    int input_change(nts::Circuit &circuit, std::string &line);
-    int display(nts::Circuit &circuit, std::string &line);
-    int loop(nts::Circuit &circuit, std::string &line);
 } // namespace nts

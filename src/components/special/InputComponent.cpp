@@ -5,6 +5,7 @@
 ** InputComponent
 */
 
+#include <iostream>
 #include <nanotekspice/components/special/InputComponent.hh>
 
 /* Constructor & Destructor */

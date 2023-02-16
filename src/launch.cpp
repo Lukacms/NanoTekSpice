@@ -5,18 +5,19 @@
 ** launch
 */
 
-#include "nanotekspice/Circuit.hh"
 #include <exception>
 #include <functional>
 #include <iostream>
 #include <istream>
 #include <map>
+#include <nanotekspice/Circuit.hh>
+#include <nanotekspice/Simulator.hh>
 #include <string>
 
 static const std::map<const std::string, std::function<int(nts::Circuit &, std::string &)>>
     COMMANDS_MAP = {{"display", &nts::display},
                     {"loop", &nts::loop},
-                    {"simulate", &nts::loop},
+                    {"simulate", &nts::simulate},
                     {"", &nts::input_change}};
 
 static int analyse_input(std::string &line, nts::Circuit &circuit)
@@ -34,14 +35,15 @@ int nts::main_loop(nts::Circuit &circuit)
         std::cout << "Loop does not have any component to work with.\n";
         return EPITECH_FAILURE;
     }
-    std::cout << "> ";
-    while (!std::getline(std::cin, line).eof() && line != "exit") {
+    while (line != "exit") {
+        std::cout << "> ";
+        if (std::getline(std::cin, line).eof())
+            break;
         try {
             analyse_input(line, circuit);
         } catch (std::exception &) {
             return EPITECH_FAILURE;
         }
-        std::cout << "> ";
     }
     return EPITECH_SUCCESS;
 }

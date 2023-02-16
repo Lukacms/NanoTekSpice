@@ -5,8 +5,9 @@
 ** loop
 */
 
-#include "nanotekspice/Circuit.hh"
 #include <csignal>
+#include <nanotekspice/Circuit.hh>
+#include <nanotekspice/Simulator.hh>
 
 static bool HAS_BEEN_CALLED = false;
 

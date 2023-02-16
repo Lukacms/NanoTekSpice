@@ -36,6 +36,18 @@ std::reference_wrapper<nts::IComponent> nts::Circuit::getComponentByName(const s
     throw nts::Circuit::CircuitError();
 }
 
+void nts::Circuit::changeValueOfComponent(const std::string &name, nts::Tristate value)
+{
+    for (auto &component : this->component_list) {
+        if (component->getName() == name &&
+            (component->getType() == Input || component->getType() == Clock)) {
+            component->setNewState(value);
+            return;
+        }
+    }
+    throw nts::Circuit::CircuitError();
+}
+
 std::vector<std::reference_wrapper<nts::IComponent>>
 nts::Circuit::getComponentsByType(nts::ComponentType type)
 {

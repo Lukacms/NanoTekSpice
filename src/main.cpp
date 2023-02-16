@@ -5,15 +5,16 @@
 ** main
 */
 
-#include "nanotekspice/parsing/Parser.hh"
 #include <iostream>
 #include <memory>
 #include <nanotekspice/Circuit.hh>
+#include <nanotekspice/Simulator.hh>
 #include <nanotekspice/components/elementary/NotComponent.hh>
 #include <nanotekspice/components/gates/4071Component.hh>
 #include <nanotekspice/components/special/FalseComponent.hh>
 #include <nanotekspice/components/special/OutputComponent.hh>
 #include <nanotekspice/components/special/TrueComponent.hh>
+#include <nanotekspice/parsing/Parser.hh>
 #include <string>
 
 static int display_help()
