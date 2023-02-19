@@ -32,12 +32,12 @@ int nts::display(nts::Circuit &circuit, std::string __attribute__((unused)) & li
     std::cout << "tick: " << circuit.getTick() << "\n";
     std::cout << "input(s):\n";
     for (auto input = inputs.begin(); input != inputs.end(); input++) {
-        std::cout << "\t" << input->get().getName() << ": ";
+        std::cout << "  " << input->get().getName() << ": ";
         display_state(input->get().compute(UNUSED_PIN));
     }
     std::cout << "output(s):\n";
     for (auto output = outputs.begin(); output != outputs.end(); output++) {
-        std::cout << "\t" << output->get().getName() << ": ";
+        std::cout << "  " << output->get().getName() << ": ";
         display_state(output->get().compute(UNUSED_PIN));
     }
     return EPITECH_SUCCESS;
