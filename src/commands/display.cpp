@@ -26,6 +26,8 @@ int nts::display(nts::Circuit &circuit, std::string __attribute__((unused)) & li
 {
     std::vector<std::reference_wrapper<nts::IComponent>> inputs =
         circuit.getComponentsByType(nts::ComponentType::Input);
+    std::vector<std::reference_wrapper<nts::IComponent>> clocks =
+        circuit.getComponentsByType(nts::ComponentType::Clock);
     std::vector<std::reference_wrapper<nts::IComponent>> outputs =
         circuit.getComponentsByType(nts::ComponentType::Output);
 
@@ -34,6 +36,10 @@ int nts::display(nts::Circuit &circuit, std::string __attribute__((unused)) & li
     for (auto input = inputs.begin(); input != inputs.end(); input++) {
         std::cout << "  " << input->get().getName() << ": ";
         display_state(input->get().compute(UNUSED_PIN));
+    }
+    for (auto clock = clocks.begin(); clock != clocks.end(); clock++) {
+        std::cout << "  " << clock->get().getName() << ": ";
+        display_state(clock->get().compute(UNUSED_PIN));
     }
     std::cout << "output(s):\n";
     for (auto output = outputs.begin(); output != outputs.end(); output++) {
