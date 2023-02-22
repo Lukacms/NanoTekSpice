@@ -113,6 +113,7 @@ add_executable(
   src/commands/simulate.cpp
   src/commands/input_change.cpp
   src/components/AComponent.cpp
+  src/components/BooleanOperations.cpp
   src/components/elementary/AndComponent.cpp
   src/components/elementary/OrComponent.cpp
   src/components/elementary/NotComponent.cpp
@@ -128,8 +129,15 @@ add_executable(
   src/components/gates/4069Component.cpp
   src/components/gates/4071Component.cpp
   src/components/gates/4081Component.cpp
+  src/components/advanced/2716Component.cpp
   src/components/advanced/4008Component.cpp
-  src/components/BooleanOperations.cpp
+  src/components/advanced/4013Component.cpp
+  src/components/advanced/4017Component.cpp
+  src/components/advanced/4040Component.cpp
+  src/components/advanced/4094Component.cpp
+  src/components/advanced/4512Component.cpp
+  src/components/advanced/4514Component.cpp
+  src/components/advanced/4801Component.cpp
   src/parsing/Parser.cpp
   src/parsing/load_circuit.cpp
   src/parsing/utils_parser.cpp)

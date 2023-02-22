@@ -31,18 +31,21 @@ nts::Tristate nts::FourBitAdderComponent::compute(std::size_t pin)
     return nts::Tristate::False;
 }
 
-nts::Tristate nts::FourBitAdderComponent::computeSpecificPin(std::size_t pin1, std::size_t pin2)
+nts::Tristate nts::FourBitAdderComponent::computeSpecificPin(std::size_t first_input,
+                                                             std::size_t second_input)
 {
     nts::Tristate input1 = nts::Tristate::Undefined;
     nts::Tristate input2 = nts::Tristate::Undefined;
     nts::Tristate input3 = nts::Tristate::Undefined;
 
-    if (this->pin_to_pin.find(pin1) != this->pin_to_pin.end() &&
-        this->pin_to_component.find(pin1) != this->pin_to_component.end())
-        input1 = this->pin_to_component.at(pin1).get().compute(this->pin_to_pin[pin1]);
-    if (this->pin_to_pin.find(pin2) != this->pin_to_pin.end() &&
-        this->pin_to_component.find(pin2) != this->pin_to_component.end())
-        input2 = this->pin_to_component.at(pin2).get().compute(this->pin_to_pin[pin2]);
+    if (this->pin_to_pin.find(first_input) != this->pin_to_pin.end() &&
+        this->pin_to_component.find(first_input) != this->pin_to_component.end())
+        input1 =
+            this->pin_to_component.at(first_input).get().compute(this->pin_to_pin[first_input]);
+    if (this->pin_to_pin.find(second_input) != this->pin_to_pin.end() &&
+        this->pin_to_component.find(second_input) != this->pin_to_component.end())
+        input2 =
+            this->pin_to_component.at(second_input).get().compute(this->pin_to_pin[second_input]);
     if (this->pin_to_pin.find(chip_pin9) != this->pin_to_pin.end() &&
         this->pin_to_component.find(chip_pin9) != this->pin_to_component.end())
         input3 = this->pin_to_component.at(chip_pin9).get().compute(this->pin_to_pin[chip_pin9]);
