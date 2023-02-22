@@ -21,7 +21,7 @@ nts::Tristate nts::FourNorComponent::compute(std::size_t pin)
     if (pin == chip_pin3)
         return this->computeSpecificPin(chip_pin1, chip_pin2);
     if (pin == chip_pin4)
-        return this->computeSpecificPin(chip_pin5, chip_pin5);
+        return this->computeSpecificPin(chip_pin5, chip_pin6);
     if (pin == chip_pin10)
         return this->computeSpecificPin(chip_pin8, chip_pin9);
     return this->computeSpecificPin(chip_pin12, chip_pin13);

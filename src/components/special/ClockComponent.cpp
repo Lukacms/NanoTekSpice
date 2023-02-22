@@ -31,8 +31,11 @@ void nts::ClockComponent::setNewState(nts::Tristate state)
 
 void nts::ClockComponent::simulate(std::size_t tick)
 {
-    if (tick == 0)
+    if (this->is_new_state_exist) {
+        this->current_state = this->new_state;
+        this->is_new_state_exist = false;
         return;
+    }
     for (std::size_t i = 0; i < tick; i += 1) {
         if (this->current_state == nts::Tristate::Undefined)
             break;
@@ -40,9 +43,5 @@ void nts::ClockComponent::simulate(std::size_t tick)
             this->current_state = nts::Tristate::False;
         else
             this->current_state = nts::Tristate::True;
-    }
-    if (this->is_new_state_exist) {
-        this->current_state = this->new_state;
-        this->is_new_state_exist = false;
     }
 }
