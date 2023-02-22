@@ -14,7 +14,15 @@
 #include <memory>
 #include <nanotekspice/Circuit.hh>
 #include <nanotekspice/components/IComponent.hh>
+#include <nanotekspice/components/advanced/2716Component.hh>
 #include <nanotekspice/components/advanced/4008Component.hh>
+#include <nanotekspice/components/advanced/4013Component.hh>
+#include <nanotekspice/components/advanced/4017Component.hh>
+#include <nanotekspice/components/advanced/4040Component.hh>
+#include <nanotekspice/components/advanced/4094Component.hh>
+#include <nanotekspice/components/advanced/4512Component.hh>
+#include <nanotekspice/components/advanced/4514Component.hh>
+#include <nanotekspice/components/advanced/4801Component.hh>
 #include <nanotekspice/components/elementary/AndComponent.hh>
 #include <nanotekspice/components/elementary/NotComponent.hh>
 #include <nanotekspice/components/elementary/OrComponent.hh>
@@ -104,14 +112,38 @@ static const std::map<const std::string,
              return std::make_unique<nts::FourBitAdderComponent>(name);
          }},
         // thoses components are not created in the branch, need to pull
-        /* {"4013", [](const std::string &name){return std::make_unique<nts::>(name);}},
-        {"4017", [](const std::string &name){return std::make_unique<nts::>(name);}},
-        {"4040", [](const std::string &name){return std::make_unique<nts::>(name);}},
-        {"4094", [](const std::string &name){return std::make_unique<nts::>(name);}},
-        {"4512", [](const std::string &name){return std::make_unique<nts::>(name);}},
-        {"4514", [](const std::string &name){return std::make_unique<nts::>(name);}},
-        {"4801", [](const std::string &name){return std::make_unique<nts::>(name);}},
-        {"2716", [](const std::string &name){return std::make_unique<nts::>(name);}}, */
+        {"4013",
+         [](const std::string &name) {
+             return std::make_unique<nts::DualFlipFlopComponent>(name);
+         }},
+        {"4017",
+         [](const std::string &name) {
+             return std::make_unique<nts::TenBitJohnsonComponent>(name);
+         }},
+        {"4040",
+         [](const std::string &name) {
+             return std::make_unique<nts::TwelveBitCounterComponent>(name);
+         }},
+        {"4094",
+         [](const std::string &name) {
+             return std::make_unique<nts::EightBitShifterComponent>(name);
+         }},
+        {"4512",
+         [](const std::string &name) {
+             return std::make_unique<nts::EightChannelSelectorComponent>(name);
+         }},
+        {"4514",
+         [](const std::string &name) {
+             return std::make_unique<nts::FourBitDecoderComponent>(name);
+         }},
+        {"4801",
+         [](const std::string &name) {
+             return std::make_unique<nts::RandomMemAccessComponent>(name);
+         }},
+        {"2716",
+         [](const std::string &name) {
+             return std::make_unique<nts::ReadOnlyComponent>(name);
+         }},
     };
 
 // method to go with above map
@@ -168,19 +200,22 @@ void nts::Parser::createComponents(nts::Circuit &circuit)
 
     stream >> tmp;
     while (line != this->contents.end() && tmp != std::string{CHIPSET_IND}) {
+        stream.clear();
         if (tmp == std::string{LINKS_IND})
             throw nts::Parser::ParserException{std::string{PARSER_NO_CHIPSET}};
         line++;
         stream.str(*line);
         stream >> tmp;
     }
-    if (line == this->contents.end() || ++line == this->contents.end())
+    if (line == this->contents.end())
         throw nts::Parser::ParserException(std::string{PARSER_NO_CHIPSET});
-    while (line != this->contents.end() && tmp != std::string{LINKS_IND}) {
-        this->analyseLine(*line, circuit);
-        line++;
+    while (++line != this->contents.end()) {
+        stream.clear();
         stream.str(*line);
         stream >> tmp;
+        if (tmp == std::string{LINKS_IND})
+            break;
+        this->analyseLine(*line, circuit);
     }
     this->contents.erase(this->contents.begin(), line);
 }
