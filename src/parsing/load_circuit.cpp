@@ -163,17 +163,24 @@ void nts::Parser::analyseLine(std::string &line, nts::Circuit &circuit)
 void nts::Parser::createComponents(nts::Circuit &circuit)
 {
     auto line = this->contents.begin();
+    std::stringstream stream{*line};
+    std::string tmp;
 
-    while (line != this->contents.end() && *line != std::string{CHIPSET_IND}) {
-        line++;
-        if (*line == std::string{LINKS_IND})
+    stream >> tmp;
+    while (line != this->contents.end() && tmp != std::string{CHIPSET_IND}) {
+        if (tmp == std::string{LINKS_IND})
             throw nts::Parser::ParserException{std::string{PARSER_NO_CHIPSET}};
+        line++;
+        stream.str(*line);
+        stream >> tmp;
     }
     if (line == this->contents.end() || ++line == this->contents.end())
         throw nts::Parser::ParserException(std::string{PARSER_NO_CHIPSET});
-    while (line != this->contents.end() && *line != std::string{LINKS_IND}) {
+    while (line != this->contents.end() && tmp != std::string{LINKS_IND}) {
         this->analyseLine(*line, circuit);
         line++;
+        stream.str(*line);
+        stream >> tmp;
     }
     this->contents.erase(this->contents.begin(), line);
 }
@@ -217,9 +224,14 @@ void nts::Parser::setLinkLine(std::string &line, nts::Circuit &circuit)
 void nts::Parser::setComponentLinks(nts::Circuit &circuit)
 {
     auto line = this->contents.begin();
+    std::stringstream stream{*line};
+    std::string tmp;
 
-    while (line != this->contents.end() && *line != std::string{LINKS_IND}) {
+    stream >> tmp;
+    while (line != this->contents.end() && tmp != std::string{LINKS_IND}) {
         line++;
+        stream.str(*line);
+        stream >> tmp;
     }
     if (line == this->contents.end())
         return;
