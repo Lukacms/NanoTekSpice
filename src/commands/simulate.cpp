@@ -21,12 +21,12 @@ int nts::simulate(nts::Circuit &circuit, std::string __attribute__((unused)) & l
 
     circuit.addTick();
     for (auto input = inputs.begin(); input != inputs.end(); input++)
-        input->get().simulate(circuit.getTick());
+        input->get().simulate(1);
     for (auto clock = clocks.begin(); clock != clocks.end(); clock++)
-        clock->get().simulate(circuit.getTick());
+        clock->get().simulate(1);
     for (auto other = others.begin(); other != others.end(); other++)
-        other->get().simulate(circuit.getTick());
+        other->get().simulate(1);
     for (auto output = outputs.begin(); output != outputs.end(); output++)
-        output->get().simulate(circuit.getTick());
+        output->get().simulate(1);
     return EPITECH_SUCCESS;
 }
