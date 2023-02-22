@@ -46,7 +46,7 @@ nts::Tristate nts::FourBitAdderComponent::computeSpecificPin(std::size_t pin1, s
     if (this->pin_to_pin.find(chip_pin9) != this->pin_to_pin.end() &&
         this->pin_to_component.find(chip_pin9) != this->pin_to_component.end())
         input3 = this->pin_to_component.at(chip_pin9).get().compute(this->pin_to_pin[chip_pin9]);
-    return static_cast<nts::Tristate>(input1 ^ input2 ^ input3);
+    return nts::notFunction(static_cast<nts::Tristate>(input1 ^ input2 ^ input3));
 }
 
 nts::Tristate nts::FourBitAdderComponent::computeCarryOut(std::size_t a_pin, std::size_t b_pin)
@@ -68,6 +68,6 @@ nts::Tristate nts::FourBitAdderComponent::computeCarryOut(std::size_t a_pin, std
         input_c = this->pin_to_component.at(chip_pin9).get().compute(this->pin_to_pin[chip_pin9]);
     if (a_pin == chip_pin7 && b_pin == chip_pin6)
         return static_cast<nts::Tristate>((input_a * input_b) + (input_c * (input_a ^ input_b)));
-    return static_cast<nts::Tristate>(
-        (input_a * input_b) + (this->computeCarryOut(a_pin + 2, b_pin + 2) * (input_a ^ input_b)));
+    return nts::notFunction(static_cast<nts::Tristate>(
+        (input_a * input_b) + (this->computeCarryOut(a_pin + 2, b_pin + 2) * (input_a ^ input_b))));
 }
