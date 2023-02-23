@@ -7,6 +7,7 @@
 
 #include "nanotekspice/Circuit.hh"
 #include "nanotekspice/components/AComponent.hh"
+#include <iostream>
 #include <nanotekspice/parsing/Parser.hh>
 #include <string>
 
@@ -15,7 +16,16 @@
 std::string nts::without_comment(const std::string &src)
 {
     std::string dest = src.substr(0, src.find(PARSER_COMMENT_INDICATOR));
+    auto idest = dest.end();
 
+    while (idest != dest.begin()) {
+        if (*idest != ' ' && *idest != '\0' && *idest != '\t') {
+            idest++;
+            break;
+        }
+        idest--;
+    }
+    dest.erase(idest, dest.end());
     return dest;
 }
 
