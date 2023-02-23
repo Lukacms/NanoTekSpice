@@ -14,19 +14,19 @@ nts::EightChannelSelectorComponent::EightChannelSelectorComponent(const std::str
     this->name = pname;
 }
 
-nts::Tristate nts::EightChannelSelectorComponent::compute(std::size_t pin)
+nts::Tristate nts::EightChannelSelectorComponent::compute(std::size_t /* pin */)
 {
     return nts::Tristate::Undefined;
 }
 
-nts::Tristate nts::EightChannelSelectorComponent::computeSpecificPin(std::size_t first_input,
-                                                                     std::size_t second_input)
+nts::Tristate nts::EightChannelSelectorComponent::computeSpecificPin(std::size_t /* first_input */,
+                                                                     std::size_t /* second_input */)
 {
     return nts::Tristate::Undefined;
 }
 
-nts::Tristate nts::EightChannelSelectorComponent::computeCarryOut(std::size_t first_input,
-                                                                  std::size_t second_input)
+nts::Tristate nts::EightChannelSelectorComponent::computeCarryOut(std::size_t /* first_input */,
+                                                                  std::size_t /* second_input */)
 {
     return nts::Tristate::Undefined;
 }

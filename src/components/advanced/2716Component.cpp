@@ -16,19 +16,19 @@ nts::ReadOnlyComponent::ReadOnlyComponent(const std::string &pname)
     this->name = pname;
 }
 
-nts::Tristate nts::ReadOnlyComponent::compute(std::size_t pin)
+nts::Tristate nts::ReadOnlyComponent::compute(std::size_t /* pin */)
 {
     return nts::Tristate::Undefined;
 }
 
-nts::Tristate nts::ReadOnlyComponent::computeSpecificPin(std::size_t first_input,
-                                                         std::size_t second_input)
+nts::Tristate nts::ReadOnlyComponent::computeSpecificPin(std::size_t /* first_input */,
+                                                         std::size_t /* second_input */)
 {
     return nts::Tristate::Undefined;
 }
 
-nts::Tristate nts::ReadOnlyComponent::computeCarryOut(std::size_t first_input,
-                                                      std::size_t second_input)
+nts::Tristate nts::ReadOnlyComponent::computeCarryOut(std::size_t /* first_input */,
+                                                      std::size_t /* second_input */)
 {
     return nts::Tristate::Undefined;
 }
