@@ -31,7 +31,8 @@ constexpr char const *PARSER_NO_CHIPSET = "No chipset given to make links.";
 constexpr char const *PARSER_LINK_UNKNOWN = "Can't make a link with a nonexistant chipset.";
 constexpr char const *PARSER_INVALID_CHIPSET = "Chipset is invalid";
 constexpr char const *PIN_OUT_OF_BOND = "Chipset's pin is out of bond.";
-constexpr char const *PARSER_INVALID_LINK_FORMAT = "invalid link format: ";
+constexpr char const *PARSER_INVALID_LINK_FORMAT = "Invalid link format: ";
+constexpr char const *INFIN_LOOP = "Infinite loop created";
 
 constexpr int LINKS_ARGS_SIZE = 4;
 
@@ -105,5 +106,6 @@ namespace nts
     bool hasChipset(const std::string &name, nts::Circuit &circuit);
     std::unique_ptr<nts::IComponent> createNamedComponent(std::string &name,
                                                           const std::string &type);
+    bool checkInfinLoop(nts::Circuit &circuit);
 
 } // namespace nts

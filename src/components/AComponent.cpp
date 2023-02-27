@@ -7,6 +7,7 @@
 
 #include "nanotekspice/components/IComponent.hh"
 #include <nanotekspice/components/AComponent.hh>
+#include <sys/types.h>
 
 /* Destructor */
 
@@ -32,4 +33,9 @@ std::string nts::AComponent::getName() const
 nts::ComponentType nts::AComponent::getType() const
 {
     return this->type;
+}
+
+std::size_t nts::AComponent::getNumberOfComponents() const
+{
+    return this->pin_to_component.size();
 }

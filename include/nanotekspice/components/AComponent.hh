@@ -24,6 +24,7 @@ namespace nts
             void setNewState(nts::Tristate new_state) override;
             std::string getName() const override;
             ComponentType getType() const override;
+            std::size_t getNumberOfComponents() const override;
 
         protected:
             std::string name;

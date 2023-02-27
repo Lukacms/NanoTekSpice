@@ -33,5 +33,6 @@ namespace nts
             virtual void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherpin) = 0;
             virtual std::string getName() const = 0;
             virtual ComponentType getType() const = 0;
+            virtual std::size_t getNumberOfComponents() const = 0;
     };
 } // namespace nts

@@ -171,6 +171,8 @@ void nts::Parser::doParsing(nts::Circuit &circuit)
     } catch (nts::Parser::ParserException &e) {
         throw e;
     }
+    if (!nts::checkInfinLoop(circuit))
+        throw nts::Parser::ParserException(std::string{INFIN_LOOP});
 }
 
 // private methods called by doParsing => creating components
