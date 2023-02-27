@@ -42,7 +42,7 @@ int nts::main_loop(nts::Circuit &circuit)
         try {
             analyse_input(line, circuit);
         } catch (std::exception &) {
-            return EPITECH_FAILURE;
+            continue;
         }
     }
     return EPITECH_SUCCESS;
