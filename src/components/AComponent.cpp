@@ -6,6 +6,8 @@
 */
 
 #include "nanotekspice/components/IComponent.hh"
+#include "nanotekspice/parsing/Parser.hh"
+#include <iostream>
 #include <nanotekspice/components/AComponent.hh>
 #include <sys/types.h>
 
@@ -17,6 +19,8 @@
 
 void nts::AComponent::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherpin)
 {
+    if (this->pin_to_pin[pin])
+        throw nts::Parser::ParserException(INFIN_LOOP);
     this->pin_to_component.emplace(pin, std::ref(other));
     this->pin_to_pin[pin] = otherpin;
 }
