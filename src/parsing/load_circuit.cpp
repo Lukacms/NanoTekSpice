@@ -5,6 +5,7 @@
 ** load_circuit
 */
 
+#include "nanotekspice/components/advanced/LoggerComponent.hh"
 #include <algorithm>
 #include <cstddef>
 #include <cstdlib>
@@ -142,6 +143,10 @@ static const std::map<const std::string,
         {"2716",
          [](const std::string &name) {
              return std::make_unique<nts::ReadOnlyComponent>(name);
+         }},
+        {"logger",
+         [](const std::string &name) {
+             return std::make_unique<nts::LoggerComponent>(name);
          }},
     };
 

@@ -138,6 +138,7 @@ add_executable(
   src/components/advanced/4512Component.cpp
   src/components/advanced/4514Component.cpp
   src/components/advanced/4801Component.cpp
+  src/components/advanced/LoggerComponent.cpp
   src/parsing/Parser.cpp
   src/parsing/load_circuit.cpp
   src/parsing/utils_parser.cpp)
